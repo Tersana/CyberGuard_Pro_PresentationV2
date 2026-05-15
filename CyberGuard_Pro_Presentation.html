@@ -1,0 +1,1857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CyberGuard Pro — Comprehensive Cybersecurity Analysis Platform</title>
+
+    <!-- Fonts: Clash Display + Satoshi from Fontshare -->
+    <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=clash-display@200,300,400,500,600,700&f[]=satoshi@300,400,500,700&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" />
+
+    <style>
+    /* ===========================================
+       CSS CUSTOM PROPERTIES — NEON CYBER THEME
+       CyberGuard Pro Academic Presentation
+       =========================================== */
+    :root {
+        /* Colors — Neon Cyber Palette */
+        --bg-primary: #0a0f1c;
+        --bg-secondary: #0d1526;
+        --bg-card: #111b2e;
+        --bg-card-hover: #162240;
+        --text-primary: #e8ecf4;
+        --text-secondary: #7a8ba8;
+        --text-dim: #4a5a74;
+        --accent-cyan: #00d4ff;
+        --accent-cyan-glow: rgba(0, 212, 255, 0.25);
+        --accent-cyan-dim: rgba(0, 212, 255, 0.08);
+        --accent-magenta: #ff00aa;
+        --accent-magenta-glow: rgba(255, 0, 170, 0.2);
+        --accent-green: #10b981;
+        --accent-green-glow: rgba(16, 185, 129, 0.2);
+        --accent-orange: #f97316;
+        --accent-orange-glow: rgba(249, 115, 22, 0.2);
+        --accent-purple: #7c3aed;
+        --accent-purple-glow: rgba(124, 58, 237, 0.2);
+        --accent-red: #ef4444;
+        --accent-red-glow: rgba(239, 68, 68, 0.2);
+        --accent-yellow: #f59e0b;
+        --border: rgba(0, 212, 255, 0.12);
+        --border-subtle: rgba(255, 255, 255, 0.06);
+
+        /* Typography — all using clamp() */
+        --font-display: 'Clash Display', sans-serif;
+        --font-body: 'Satoshi', sans-serif;
+        --font-mono: 'JetBrains Mono', monospace;
+        --title-size: clamp(1.8rem, 4.5vw, 3.5rem);
+        --h2-size: clamp(1.3rem, 3vw, 2.2rem);
+        --h3-size: clamp(1rem, 2.2vw, 1.5rem);
+        --body-size: clamp(0.7rem, 1.3vw, 1rem);
+        --small-size: clamp(0.6rem, 1vw, 0.85rem);
+        --label-size: clamp(0.55rem, 0.9vw, 0.75rem);
+
+        /* Spacing */
+        --slide-padding: clamp(1.2rem, 3.5vw, 3.5rem);
+        --content-gap: clamp(0.6rem, 1.5vw, 1.5rem);
+        --element-gap: clamp(0.3rem, 0.8vw, 0.75rem);
+
+        /* Animation */
+        --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+        --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+        --duration-normal: 0.6s;
+        --duration-slow: 1s;
+    }
+
+    /* ===========================================
+       VIEWPORT FITTING: MANDATORY BASE STYLES
+       =========================================== */
+    html, body {
+        height: 100%;
+        overflow-x: hidden;
+    }
+    html {
+        scroll-snap-type: y mandatory;
+        scroll-behavior: smooth;
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+        font-family: var(--font-body);
+        color: var(--text-primary);
+        background: var(--bg-primary);
+        -webkit-font-smoothing: antialiased;
+    }
+    .slide {
+        width: 100vw;
+        height: 100vh;
+        height: 100dvh;
+        overflow: hidden;
+        scroll-snap-align: start;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        background: var(--bg-primary);
+    }
+    .slide-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        max-height: 100%;
+        overflow: hidden;
+        padding: var(--slide-padding);
+    }
+    .card, .container, .content-box {
+        max-width: min(90vw, 1100px);
+        max-height: min(80vh, 700px);
+    }
+    .feature-list, .bullet-list { gap: clamp(0.3rem, 0.8vh, 0.75rem); }
+    .feature-list li, .bullet-list li { font-size: var(--body-size); line-height: 1.4; }
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+        gap: clamp(0.5rem, 1.5vw, 1rem);
+    }
+    img, .image-container {
+        max-width: 100%;
+        max-height: min(50vh, 400px);
+        object-fit: contain;
+    }
+    @media (max-height: 700px) {
+        :root {
+            --slide-padding: clamp(0.75rem, 3vw, 2rem);
+            --content-gap: clamp(0.4rem, 1.2vw, 0.8rem);
+            --title-size: clamp(1.4rem, 4vw, 2.4rem);
+            --h2-size: clamp(1.1rem, 2.5vw, 1.6rem);
+        }
+    }
+    @media (max-height: 600px) {
+        :root {
+            --slide-padding: clamp(0.5rem, 2.5vw, 1.5rem);
+            --content-gap: clamp(0.3rem, 1vw, 0.6rem);
+            --title-size: clamp(1.1rem, 3.5vw, 1.8rem);
+            --body-size: clamp(0.65rem, 1.1vw, 0.9rem);
+        }
+        .nav-dots, .keyboard-hint, .decorative { display: none; }
+    }
+    @media (max-height: 500px) {
+        :root {
+            --slide-padding: clamp(0.4rem, 2vw, 1rem);
+            --title-size: clamp(0.9rem, 3vw, 1.4rem);
+            --h2-size: clamp(0.8rem, 2.2vw, 1.1rem);
+            --body-size: clamp(0.6rem, 0.9vw, 0.8rem);
+        }
+    }
+    @media (max-width: 600px) {
+        :root { --title-size: clamp(1.2rem, 6vw, 2rem); }
+        .grid { grid-template-columns: 1fr; }
+        .cols-2, .cols-3, .cols-4 { grid-template-columns: 1fr !important; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+            animation-duration: 0.01ms !important;
+            transition-duration: 0.2s !important;
+        }
+        html { scroll-behavior: auto; }
+    }
+
+    /* ===========================================
+       ANIMATIONS — Neon Cyber: Techy / Futuristic
+       =========================================== */
+    .reveal {
+        opacity: 0;
+        transform: translateY(24px);
+        transition: opacity var(--duration-normal) var(--ease-out-expo),
+                    transform var(--duration-normal) var(--ease-out-expo);
+    }
+    .slide.visible .reveal { opacity: 1; transform: translateY(0); }
+    .reveal:nth-child(1) { transition-delay: 0.08s; }
+    .reveal:nth-child(2) { transition-delay: 0.16s; }
+    .reveal:nth-child(3) { transition-delay: 0.24s; }
+    .reveal:nth-child(4) { transition-delay: 0.32s; }
+    .reveal:nth-child(5) { transition-delay: 0.40s; }
+    .reveal:nth-child(6) { transition-delay: 0.48s; }
+    .reveal:nth-child(7) { transition-delay: 0.56s; }
+
+    .reveal-scale {
+        opacity: 0;
+        transform: scale(0.92);
+        transition: opacity 0.6s, transform 0.6s var(--ease-out-expo);
+    }
+    .slide.visible .reveal-scale { opacity: 1; transform: scale(1); }
+
+    .reveal-left {
+        opacity: 0;
+        transform: translateX(-40px);
+        transition: opacity 0.6s, transform 0.6s var(--ease-out-expo);
+    }
+    .slide.visible .reveal-left { opacity: 1; transform: translateX(0); }
+
+    .reveal-right {
+        opacity: 0;
+        transform: translateX(40px);
+        transition: opacity 0.6s, transform 0.6s var(--ease-out-expo);
+    }
+    .slide.visible .reveal-right { opacity: 1; transform: translateX(0); }
+
+    @keyframes pulseGlow {
+        0%, 100% { box-shadow: 0 0 20px var(--accent-cyan-glow); }
+        50% { box-shadow: 0 0 40px var(--accent-cyan-glow), 0 0 60px rgba(0,212,255,0.1); }
+    }
+    @keyframes scanLine {
+        0% { top: -2px; }
+        100% { top: 100%; }
+    }
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-8px); }
+    }
+    @keyframes typewriter {
+        from { width: 0; }
+        to { width: 100%; }
+    }
+    @keyframes blink {
+        50% { border-color: transparent; }
+    }
+
+    /* ===========================================
+       BACKGROUNDS & EFFECTS
+       =========================================== */
+    .gradient-mesh {
+        background:
+            radial-gradient(ellipse at 15% 85%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
+            radial-gradient(ellipse at 85% 15%, rgba(255, 0, 170, 0.06) 0%, transparent 50%),
+            radial-gradient(ellipse at 50% 50%, rgba(124, 58, 237, 0.04) 0%, transparent 60%),
+            var(--bg-primary);
+    }
+    .grid-bg::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image:
+            linear-gradient(rgba(0,212,255,0.04) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0,212,255,0.04) 1px, transparent 1px);
+        background-size: clamp(30px, 4vw, 60px) clamp(30px, 4vw, 60px);
+        pointer-events: none;
+        z-index: 0;
+    }
+    .scan-line::after {
+        content: '';
+        position: absolute;
+        left: 0; right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+        animation: scanLine 4s linear infinite;
+        opacity: 0.3;
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    /* ===========================================
+       LAYOUT COMPONENTS
+       =========================================== */
+    .slide-header {
+        display: flex;
+        align-items: center;
+        gap: clamp(0.4rem, 1vw, 0.8rem);
+        margin-bottom: var(--content-gap);
+        position: relative;
+        z-index: 2;
+    }
+    .section-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: clamp(0.2rem, 0.4vw, 0.4rem);
+        padding: clamp(0.15rem, 0.4vw, 0.3rem) clamp(0.5rem, 1vw, 0.8rem);
+        background: var(--accent-cyan-dim);
+        border: 1px solid var(--border);
+        border-radius: 100px;
+        font-family: var(--font-mono);
+        font-size: var(--label-size);
+        color: var(--accent-cyan);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        white-space: nowrap;
+    }
+    .section-badge.green { background: var(--accent-green-glow); color: var(--accent-green); border-color: rgba(16,185,129,0.2); }
+    .section-badge.purple { background: var(--accent-purple-glow); color: var(--accent-purple); border-color: rgba(124,58,237,0.2); }
+    .section-badge.orange { background: var(--accent-orange-glow); color: var(--accent-orange); border-color: rgba(249,115,22,0.2); }
+    .section-badge.red { background: var(--accent-red-glow); color: var(--accent-red); border-color: rgba(239,68,68,0.2); }
+
+    h1 { font-family: var(--font-display); font-size: var(--title-size); font-weight: 600; line-height: 1.1; letter-spacing: -0.02em; }
+    h2 { font-family: var(--font-display); font-size: var(--h2-size); font-weight: 600; line-height: 1.15; letter-spacing: -0.01em; }
+    h3 { font-family: var(--font-display); font-size: var(--h3-size); font-weight: 500; line-height: 1.2; }
+    p, li { font-size: var(--body-size); line-height: 1.55; color: var(--text-secondary); }
+
+    .accent { color: var(--accent-cyan); }
+    .accent-magenta { color: var(--accent-magenta); }
+    .accent-green { color: var(--accent-green); }
+    .accent-orange { color: var(--accent-orange); }
+    .accent-purple { color: var(--accent-purple); }
+    .accent-red { color: var(--accent-red); }
+    .accent-yellow { color: var(--accent-yellow); }
+
+    .cols-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--content-gap); }
+    .cols-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--content-gap); }
+    .cols-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.3rem, 0.8vw, 0.7rem); }
+    .cols-2-1 { display: grid; grid-template-columns: 2fr 1fr; gap: var(--content-gap); }
+    .cols-1-2 { display: grid; grid-template-columns: 1fr 2fr; gap: var(--content-gap); }
+
+    .card-panel {
+        background: var(--bg-card);
+        border: 1px solid var(--border-subtle);
+        border-radius: clamp(6px, 0.8vw, 12px);
+        padding: clamp(0.6rem, 1.5vw, 1.2rem);
+        position: relative;
+        z-index: 2;
+    }
+    .card-panel.glow-cyan { border-color: rgba(0,212,255,0.2); box-shadow: 0 0 20px var(--accent-cyan-glow); }
+    .card-panel.glow-green { border-color: rgba(16,185,129,0.2); box-shadow: 0 0 20px var(--accent-green-glow); }
+    .card-panel.glow-purple { border-color: rgba(124,58,237,0.2); box-shadow: 0 0 20px var(--accent-purple-glow); }
+    .card-panel.glow-orange { border-color: rgba(249,115,22,0.2); box-shadow: 0 0 20px var(--accent-orange-glow); }
+    .card-panel.glow-red { border-color: rgba(239,68,68,0.2); box-shadow: 0 0 20px var(--accent-red-glow); }
+    .card-panel.glow-magenta { border-color: rgba(255,0,170,0.2); box-shadow: 0 0 20px var(--accent-magenta-glow); }
+
+    .card-panel h3 { margin-bottom: clamp(0.25rem, 0.5vw, 0.5rem); }
+    .card-panel p, .card-panel li { font-size: var(--small-size); }
+
+    ul.clean { list-style: none; padding: 0; }
+    ul.clean li { padding-left: clamp(0.8rem, 1.5vw, 1.2rem); position: relative; }
+    ul.clean li::before {
+        content: '\25B8';
+        position: absolute;
+        left: 0;
+        color: var(--accent-cyan);
+        font-size: var(--small-size);
+    }
+    ul.clean.green li::before { color: var(--accent-green); }
+    ul.clean.purple li::before { color: var(--accent-purple); }
+    ul.clean.orange li::before { color: var(--accent-orange); }
+    ul.clean.red li::before { color: var(--accent-red); }
+
+    .flow-row {
+        display: flex;
+        align-items: center;
+        gap: clamp(0.2rem, 0.5vw, 0.5rem);
+        flex-wrap: wrap;
+        justify-content: center;
+        z-index: 2;
+        position: relative;
+    }
+    .flow-box {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: clamp(4px, 0.5vw, 8px);
+        padding: clamp(0.3rem, 0.8vw, 0.6rem) clamp(0.5rem, 1.2vw, 1rem);
+        text-align: center;
+        font-size: var(--small-size);
+        font-weight: 500;
+        color: var(--text-primary);
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+    .flow-box.cyan { border-color: rgba(0,212,255,0.3); color: var(--accent-cyan); }
+    .flow-box.green { border-color: rgba(16,185,129,0.3); color: var(--accent-green); }
+    .flow-box.purple { border-color: rgba(124,58,237,0.3); color: var(--accent-purple); }
+    .flow-box.orange { border-color: rgba(249,115,22,0.3); color: var(--accent-orange); }
+    .flow-box.red { border-color: rgba(239,68,68,0.3); color: var(--accent-red); }
+    .flow-box.yellow { border-color: rgba(245,158,11,0.3); color: var(--accent-yellow); }
+    .flow-arrow {
+        color: var(--text-dim);
+        font-size: var(--small-size);
+        flex-shrink: 0;
+    }
+
+    .data-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: var(--small-size);
+        z-index: 2;
+        position: relative;
+    }
+    .data-table th {
+        background: rgba(0,212,255,0.1);
+        color: var(--accent-cyan);
+        text-align: left;
+        padding: clamp(0.2rem, 0.5vw, 0.4rem) clamp(0.3rem, 0.8vw, 0.6rem);
+        font-family: var(--font-mono);
+        font-size: var(--label-size);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        border-bottom: 1px solid var(--border);
+    }
+    .data-table td {
+        padding: clamp(0.2rem, 0.4vw, 0.35rem) clamp(0.3rem, 0.8vw, 0.6rem);
+        border-bottom: 1px solid var(--border-subtle);
+        color: var(--text-secondary);
+    }
+    .data-table tr:hover td { background: rgba(0,212,255,0.03); }
+
+    .tag {
+        display: inline-block;
+        padding: clamp(0.1rem, 0.2vw, 0.15rem) clamp(0.3rem, 0.6vw, 0.5rem);
+        border-radius: 4px;
+        font-size: var(--label-size);
+        font-family: var(--font-mono);
+        font-weight: 600;
+    }
+    .tag.danger { background: var(--accent-red-glow); color: var(--accent-red); }
+    .tag.warn { background: rgba(245,158,11,0.15); color: var(--accent-yellow); }
+    .tag.safe { background: var(--accent-green-glow); color: var(--accent-green); }
+    .tag.info { background: var(--accent-cyan-dim); color: var(--accent-cyan); }
+
+    .footer-bar {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: clamp(0.3rem, 0.6vw, 0.5rem) var(--slide-padding);
+        font-size: var(--label-size);
+        color: var(--text-dim);
+        font-family: var(--font-mono);
+        border-top: 1px solid var(--border-subtle);
+        background: rgba(10,15,28,0.8);
+        z-index: 10;
+    }
+    .top-line {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, var(--accent-cyan), var(--accent-magenta), transparent);
+        z-index: 10;
+    }
+
+    /* ===========================================
+       PROGRESS BAR & NAV DOTS
+       =========================================== */
+    .progress-bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 2px;
+        background: linear-gradient(90deg, var(--accent-cyan), var(--accent-magenta));
+        z-index: 9999;
+        transition: width 0.3s ease;
+    }
+    .nav-dots {
+        position: fixed;
+        right: clamp(0.5rem, 1.5vw, 1.2rem);
+        top: 50%;
+        transform: translateY(-50%);
+        display: flex;
+        flex-direction: column;
+        gap: clamp(4px, 0.5vh, 8px);
+        z-index: 9998;
+    }
+    .nav-dot {
+        width: clamp(5px, 0.5vw, 8px);
+        height: clamp(5px, 0.5vw, 8px);
+        border-radius: 50%;
+        background: var(--text-dim);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: none;
+        padding: 0;
+    }
+    .nav-dot.active {
+        background: var(--accent-cyan);
+        box-shadow: 0 0 8px var(--accent-cyan-glow);
+        transform: scale(1.4);
+    }
+
+    /* ===========================================
+       TITLE SLIDE SPECIFIC
+       =========================================== */
+    .title-slide {
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+    .title-slide .slide-content {
+        align-items: center;
+        justify-content: center;
+    }
+    .title-logo {
+        width: clamp(50px, 8vw, 90px);
+        height: clamp(50px, 8vw, 90px);
+        border-radius: 50%;
+        background: var(--bg-card);
+        border: 2px solid var(--accent-cyan);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--font-display);
+        font-size: clamp(1.2rem, 3vw, 2.2rem);
+        font-weight: 700;
+        color: var(--accent-cyan);
+        margin-bottom: var(--content-gap);
+        animation: pulseGlow 3s ease-in-out infinite;
+    }
+    .title-slide h1 {
+        font-size: clamp(2rem, 5.5vw, 4.5rem);
+        background: linear-gradient(135deg, #fff, var(--accent-cyan));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    .subtitle {
+        font-size: clamp(0.8rem, 1.8vw, 1.3rem);
+        color: var(--text-secondary);
+        margin-top: clamp(0.3rem, 0.8vw, 0.6rem);
+    }
+    .meta-line {
+        font-family: var(--font-mono);
+        font-size: var(--label-size);
+        color: var(--text-dim);
+        margin-top: clamp(0.8rem, 2vw, 1.5rem);
+        letter-spacing: 0.05em;
+    }
+    .divider-glow {
+        width: clamp(60px, 15vw, 200px);
+        height: 2px;
+        background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+        margin: clamp(0.5rem, 1vw, 0.8rem) auto;
+    }
+
+    /* ===========================================
+       SECTION DIVIDER SLIDES
+       =========================================== */
+    .section-divider {
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+    .section-divider .section-number {
+        font-family: var(--font-display);
+        font-size: clamp(3rem, 10vw, 8rem);
+        font-weight: 700;
+        color: var(--accent-cyan);
+        opacity: 0.15;
+        line-height: 1;
+    }
+    .section-divider h2 {
+        font-size: clamp(1.5rem, 4vw, 3rem);
+        color: var(--text-primary);
+        margin-top: clamp(-0.5rem, -1vw, -0.8rem);
+    }
+    .section-divider .section-desc {
+        font-size: var(--body-size);
+        color: var(--text-secondary);
+        max-width: 60ch;
+        margin-top: clamp(0.3rem, 0.8vw, 0.6rem);
+    }
+
+    /* ===========================================
+       TOC SLIDE
+       =========================================== */
+    .toc-item {
+        display: flex;
+        align-items: center;
+        gap: clamp(0.5rem, 1.5vw, 1rem);
+        padding: clamp(0.4rem, 1vw, 0.7rem) clamp(0.6rem, 1.5vw, 1rem);
+        background: var(--bg-card);
+        border: 1px solid var(--border-subtle);
+        border-radius: clamp(6px, 0.6vw, 10px);
+        transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .toc-item:hover { border-color: var(--border); box-shadow: 0 0 15px var(--accent-cyan-glow); }
+    .toc-num {
+        font-family: var(--font-display);
+        font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+        font-weight: 700;
+        min-width: clamp(1.5rem, 3vw, 2.2rem);
+    }
+    .toc-text h3 { font-size: clamp(0.8rem, 1.5vw, 1.1rem); color: var(--text-primary); }
+    .toc-text p { font-size: var(--label-size); color: var(--text-secondary); margin-top: 2px; }
+
+    /* Keyboard hint */
+    .keyboard-hint {
+        position: fixed;
+        bottom: clamp(0.5rem, 1.5vw, 1.2rem);
+        left: 50%;
+        transform: translateX(-50%);
+        font-family: var(--font-mono);
+        font-size: var(--label-size);
+        color: var(--text-dim);
+        z-index: 100;
+        opacity: 0.5;
+    }
+    .keyboard-hint kbd {
+        display: inline-block;
+        padding: 1px 5px;
+        border: 1px solid var(--text-dim);
+        border-radius: 3px;
+        font-size: inherit;
+    }
+    </style>
+</head>
+<body>
+
+<!-- Progress bar -->
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- Nav dots -->
+<nav class="nav-dots" id="navDots" aria-label="Slide navigation"></nav>
+
+<!-- Keyboard hint -->
+<div class="keyboard-hint decorative"><kbd>&larr;</kbd> <kbd>&rarr;</kbd> or <kbd>Space</kbd> to navigate</div>
+
+<!-- ============================================================
+     SLIDE 01 — TITLE
+     ============================================================ -->
+<section class="slide title-slide gradient-mesh grid-bg scan-line">
+    <div class="top-line"></div>
+    <div class="slide-content">
+        <div class="title-logo reveal">CG</div>
+        <h1 class="reveal">CyberGuard Pro</h1>
+        <div class="divider-glow reveal"></div>
+        <p class="subtitle reveal">Comprehensive Cybersecurity Analysis Platform</p>
+        <p class="subtitle reveal" style="font-size:var(--small-size); color:var(--text-dim); margin-top:clamp(0.2rem,0.5vw,0.4rem);">Academic Project Presentation</p>
+        <p class="meta-line reveal">Presented by: [CyberGuard Team] &nbsp;&bull;&nbsp; May 2026</p>
+    </div>
+    <div class="footer-bar"><span>CyberGuard Pro &mdash; Confidential Academic Presentation</span><span>01 / 35</span></div>
+</section>
+
+<!-- ============================================================
+     SLIDE 02 — PLATFORM OVERVIEW
+     ============================================================ -->
+<section class="slide gradient-mesh grid-bg">
+    <div class="top-line"></div>
+    <div class="slide-content">
+        <div class="slide-header reveal"><span class="section-badge">Introduction</span></div>
+        <h2 class="reveal">Platform Overview</h2>
+        <div class="cols-2" style="margin-top:var(--content-gap);">
+            <div class="reveal-left">
+                <h3 style="color:var(--accent-cyan); margin-bottom:var(--element-gap);">What is CyberGuard Pro?</h3>
+                <ul class="clean" style="display:flex; flex-direction:column; gap:var(--element-gap);">
+                    <li>A <strong style="color:var(--text-primary);">unified web-based</strong> cybersecurity analysis platform</li>
+                    <li>Vanilla JavaScript frontend + <strong style="color:var(--text-primary);">Laravel 12</strong> REST API backend</li>
+                    <li>Integrates multiple real-world security intelligence APIs</li>
+                    <li>Designed for security professionals &amp; academic research</li>
+                </ul>
+                <div class="card-panel" style="margin-top:var(--content-gap);">
+                    <p style="font-size:var(--small-size); color:var(--text-secondary); line-height:1.5;"><strong class="accent">Core Mission:</strong> Provide a single unified interface for comprehensive cybersecurity assessments &mdash; from network reconnaissance to threat intelligence, cryptographic analysis, and collaborative project management.</p>
+                </div>
+            </div>
+            <div class="reveal-right" style="display:flex; flex-direction:column; gap:var(--element-gap);">
+                <div class="card-panel glow-cyan" style="text-align:center; padding:clamp(0.4rem,1vw,0.7rem);">
+                    <h3 class="accent" style="font-size:var(--small-size);">&#9650; Threat Intelligence</h3>
+                    <p style="font-size:var(--label-size);">VirusTotal &bull; AbuseIPDB &bull; URLScan.io</p>
+                </div>
+                <div class="cols-2" style="gap:var(--element-gap);">
+                    <div class="card-panel glow-green" style="text-align:center; padding:clamp(0.3rem,0.8vw,0.5rem);">
+                        <h3 class="accent-green" style="font-size:var(--small-size);">Network Analysis</h3>
+                        <p style="font-size:var(--label-size);">Shodan &bull; TCP &bull; WHOIS</p>
+                    </div>
+                    <div class="card-panel glow-purple" style="text-align:center; padding:clamp(0.3rem,0.8vw,0.5rem);">
+                        <h3 class="accent-purple" style="font-size:var(--small-size);">Crypto Tools</h3>
+                        <p style="font-size:var(--label-size);">Hash &bull; Password &bull; Integrity</p>
+                    </div>
+                </div>
+                <div class="card-panel glow-orange" style="text-align:center; padding:clamp(0.4rem,1vw,0.7rem);">
+                    <h3 class="accent-orange" style="font-size:var(--small-size);">&#9660; Projects &amp; Collaboration</h3>
+                    <p style="font-size:var(--label-size);">CRUD &bull; Targets &bull; Scans &bull; Teams &bull; Findings</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bar"><span>CyberGuard Pro &mdash; Confidential Academic Presentation</span><span>02 / 35</span></div>
+</section>
+
+<!-- ============================================================
+     SLIDE 03 — TABLE OF CONTENTS
+     ============================================================ -->
+<section class="slide gradient-mesh">
+    <div class="top-line"></div>
+    <div class="slide-content">
+        <div class="slide-header reveal"><span class="section-badge">Overview</span></div>
+        <h2 class="reveal">Table of Contents</h2>
+        <div style="display:flex; flex-direction:column; gap:var(--element-gap); margin-top:var(--content-gap);">
+            <div class="toc-item reveal"><span class="toc-num accent">01</span><div class="toc-text"><h3>Threat Intelligence</h3><p>VirusTotal, AbuseIPDB, URLScan.io &mdash; multi-source intelligence aggregation</p></div></div>
+            <div class="toc-item reveal"><span class="toc-num accent-purple">02</span><div class="toc-text"><h3>Cryptographic Tools</h3><p>Hash generation, password analysis, hash identification, file integrity</p></div></div>
+            <div class="toc-item reveal"><span class="toc-num accent-orange">03</span><div class="toc-text"><h3>Projects &amp; Collaboration</h3><p>Security assessment management, targets, scanners, team workflows</p></div></div>
+            <div class="toc-item reveal"><span class="toc-num accent-green">04</span><div class="toc-text"><h3>Network Analysis</h3><p>Shodan port scanning, TCP connectivity, WHOIS domain intelligence</p></div></div>
+            <div class="toc-item reveal"><span class="toc-num accent-magenta">05</span><div class="toc-text"><h3>Architecture &amp; Conclusion</h3><p>Platform architecture summary and key takeaways</p></div></div>
+        </div>
+    </div>
+    <div class="footer-bar"><span>CyberGuard Pro &mdash; Confidential Academic Presentation</span><span>03 / 35</span></div>
+</section>
+
+<!-- ============================================================
+     SLIDE 04 — WHAT IS THREAT INTELLIGENCE?
+     ============================================================ -->
+<section class="slide gradient-mesh grid-bg">
+    <div class="top-line"></div>
+    <div class="slide-content">
+        <div class="slide-header reveal"><span class="section-badge">01 &bull; Threat Intel</span></div>
+        <h2 class="reveal">What is Threat Intelligence?</h2>
+        <p class="reveal" style="max-width:80ch; margin-top:var(--element-gap);">Evidence-based knowledge about existing or emerging threats to digital assets. It provides context &mdash; indicators, mechanisms, and implications &mdash; that enables informed security decisions.</p>
+        <div class="cols-2" style="margin-top:var(--content-gap);">
+            <div class="card-panel glow-cyan reveal-left">
+                <h3 class="accent" style="margin-bottom:var(--element-gap);">Why It Matters</h3>
+                <ul class="clean" style="display:flex; flex-direction:column; gap:var(--element-gap);">
+                    <li>Proactive identification of malicious indicators</li>
+                    <li>Faster incident response with contextual data</li>
+                    <li>Cross-source correlation reduces false positives</li>
+                    <li>Enables data-driven security decisions</li>
+                </ul>
+            </div>
+            <div class="reveal-right" style="display:flex; flex-direction:column; gap:var(--element-gap);">
+                <div class="card-panel glow-cyan" style="text-align:center;"><h3 class="accent">VirusTotal</h3><p>70+ AV engines, malware &amp; URL scanning</p></div>
+                <div class="card-panel glow-green" style="text-align:center;"><h3 class="accent-green">AbuseIPDB</h3><p>IP reputation &amp; abuse confidence scoring</p></div>
+                <div class="card-panel glow-purple" style="text-align:center;"><h3 class="accent-purple">URLScan.io</h3><p>Sandboxed URL analysis &amp; screenshot capture</p></div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bar"><span>CyberGuard Pro &mdash; Confidential Academic Presentation</span><span>04 / 35</span></div>
+</section>
+
+<!-- ============================================================
+     SLIDE 05 — THREAT INTEL SEARCH INTERFACE
+     ============================================================ -->
+<section class="slide gradient-mesh">
+    <div class="top-line"></div>
+    <div class="slide-content">
+        <div class="slide-header reveal"><span class="section-badge">01 &bull; Threat Intel</span></div>
+        <h2 class="reveal">Search Interface &amp; Input Handling</h2>
+        <p class="reveal" style="margin-top:var(--element-gap); max-width:80ch;">Users enter an IP address, domain, or file hash. The system auto-detects input type via regex pattern matching and routes queries to all applicable intelligence sources simultaneously.</p>
+        <div class="flow-row reveal" style="margin-top:var(--content-gap);">
+            <div class="flow-box cyan">User Input<br><span style="font-size:var(--label-size);color:var(--text-dim);">IP / Domain / Hash</span></div>
+            <span class="flow-arrow">&rarr;</span>
+            <div class="flow-box cyan">Validation &amp;<br>Type Detection</div>
+            <span class="flow-arrow">&rarr;</span>
+            <div class="flow-box cyan">Parallel API<br>Queries</div>
+            <span class="flow-arrow">&rarr;</span>
+            <div class="flow-box cyan">Result<br>Aggregation</div>
+            <span class="flow-arrow">&rarr;</span>
+            <div class="flow-box cyan">Verdict<br>Display</div>
+        </div>
+        <div class="cols-4 reveal" style="margin-top:var(--content-gap);">
+            <div class="card-panel"><h3 class="accent" style="font-size:var(--small-size);">Auto-Detection</h3><p>Regex patterns for IPv4, domain, MD5, SHA-1, SHA-256 formats</p></div>
+            <div class="card-panel"><h3 class="accent" style="font-size:var(--small-size);">Real-Time</h3><p>Concurrent API calls to all three intelligence sources</p></div>
+            <div class="card-panel"><h3 class="accent" style="font-size:var(--small-size);">Search History</h3><p>Stored in localStorage with clear option &amp; timestamps</p></div>
+            <div class="card-panel"><h3 class="accent" style="font-size:var(--small-size);">Verdict System</h3><p>MALICIOUS / CLEAR based on aggregated threat flags</p></div>
+        </div>
+    </div>
+    <div class="footer-bar"><span>CyberGuard Pro &mdash; Confidential Academic Presentation</span><span>05 / 35</span></div>
+</section>
+
+<!-- ============================================================
+     SLIDE 06 — VIRUSTOTAL
+     ============================================================ -->
+<section class="slide gradient-mesh">
+    <div class="top-line"></div>
+    <div class="slide-content">
+        <div class="slide-header reveal"><span class="section-badge">01 &bull; Threat Intel</span></div>
+        <h2 class="reveal">VirusTotal Integration</h2>
+        <p class="reveal" style="margin-top:var(--element-gap);">The world's largest threat intelligence repository &mdash; aggregating data from 70+ antivirus engines and URL/domain scanners.</p>
+        <div class="cols-2" style="margin-top:var(--content-gap);">
+            <div class="card-panel glow-cyan reveal-left">
+                <h3 class="accent">What It Analyzes</h3>
+                <ul class="clean" style="margin-top:var(--element-gap); display:flex; flex-direction:column; gap:var(--element-gap);">
+                    <li><strong style="color:var(--text-primary);">File Hashes</strong> &mdash; MD5, SHA-1, SHA-256 lookups against 70+ AV databases</li>
+                    <li><strong style="color:var(--text-primary);">URLs</strong> &mdash; Phishing, malware distribution, suspicious redirect detection</li>
+                    <li><strong style="color:var(--text-primary);">IP Addresses</strong> &mdash; Reputation, associated malware, communication patterns</li>
+                    <li><strong style="color:var(--text-primary);">Domains</strong> &mdash; WHOIS, DNS records, detected URLs, malware samples</li>
+                </ul>
+            </div>
+            <div class="card-panel reveal-right">
+                <h3 class="accent">CyberGuard Pro Display</h3>
+                <ul class="clean" style="margin-top:var(--element-gap); display:flex; flex-direction:column; gap:var(--element-gap);">
+                    <li>Detection ratio (e.g., 5/70 engines flagged)</li>
+                    <li>Threat category classification</li>
+                    <li>Community reputation score</li>
+                    <li>Last analysis date &amp; freshness indicator</li>
+                    <li>Threat flag triggers MALICIOUS verdict</li>
+                </ul>
+                <p style="margin-top:var(--element-gap); font-family:var(--font-mono); font-size:var(--label-size); color:var(--text-dim);">API: VirusTotal API v3 &bull; /api/v3/{type}/{id}</p>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bar"><span>CyberGuard Pro &mdash; Confidential Academic Presentation</span><span>06 / 35</span></div>
+</section>
+
+<!-- ============================================================
+     SLIDE 07 — ABUSEIPDB
+     ============================================================ -->
+<section class="slide gradient-mesh">
+    <div class="top-line"></div>
+    <div class="slide-content">
+        <div class="slide-header reveal"><span class="section-badge green">01 &bull; Threat Intel</span></div>
+        <h2 class="reveal">AbuseIPDB Integration</h2>
+        <p class="reveal" style="margin-top:var(--element-gap);">A community-driven IP reputation database with millions of abuse reports from ISPs and security teams worldwide.</p>
+        <div class="cols-2" style="margin-top:var(--content-gap);">
+            <div class="card-panel glow-green reveal-left">
+                <h3 class="accent-green">What It Checks</h3>
+                <ul class="clean green" style="margin-top:var(--element-gap); display:flex; flex-direction:column; gap:var(--element-gap);">
+                    <li>IP Reputation Score: 0% (clean) to 100% (malicious)</li>
+                    <li>Total abuse reports from the community</li>
+                    <li>Categories: SSH brute force, spam, DDoS, port scanning</li>
+                    <li>ISP, usage type, country of origin</li>
+                    <li>Whitelisted status for known-safe IPs</li>
+                </ul>
+            </div>
+            <div class="card-panel glow-green reveal-right">
+                <h3 class="accent-green">Abuse Confidence Scoring</h3>
+                <div style="margin-top:var(--element-gap); display:flex; flex-direction:column; gap:var(--element-gap);">
+                    <div style="display:flex; align-items:center; gap:clamp(0.3rem,0.6vw,0.5rem);"><span class="tag safe">0&ndash;25%</span><span style="font-size:var(--small-size); color:var(--text-secondary);">Low risk &mdash; minimal reports</span></div>
+                    <div style="display:flex; align-items:center; gap:clamp(0.3rem,0.6vw,0.5rem);"><span class="tag warn">26&ndash;50%</span><span style="font-size:var(--small-size); color:var(--text-secondary);">Moderate &mdash; suspicious activity</span></div>
+                    <div style="display:flex; align-items:center; gap:clamp(0.3rem,0.6vw,0.5rem);"><span class="tag warn">51&ndash;75%</span><span style="font-size:var(--small-size); color:var(--text-secondary);">High risk &mdash; significant abuse</span></div>
+                    <div style="display:flex; align-items:center; gap:clamp(0.3rem,0.6vw,0.5rem);"><span class="tag danger">76&ndash;100%</span><span style="font-size:var(--small-size); color:var(--text-secondary);">Critical &mdash; confirmed malicious</span></div>
+                </div>
+                <p style="margin-top:var(--element-gap); font-family:var(--font-mono); font-size:var(--label-size); color:var(--text-dim);">API: AbuseIPDB v2 &bull; /api/v2/check?ipAddress={ip}</p>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bar"><span>CyberGuard Pro &mdash; Confidential Academic Presentation</span><span>07 / 35</span></div>
+</section>
+
+<!-- ============================================================
+     SLIDE 08 — URLSCAN.IO
+     ============================================================ -->
+<section class="slide gradient-mesh">
+    <div class="top-line"></div>
+    <div class="slide-content">
+        <div class="slide-header reveal"><span class="section-badge purple">01 &bull; Threat Intel</span></div>
+        <h2 class="reveal">URLScan.io Integration</h2>
+        <p class="reveal" style="margin-top:var(--element-gap);">Scans and analyzes URLs in a sandboxed browser environment &mdash; capturing screenshots, DOM content, and all network traffic.</p>
+        <div class="cols-3" style="margin-top:var(--content-gap);">
+            <div class="card-panel glow-purple reveal">
+                <h3 class="accent-purple">URL Analysis</h3>
+                <ul class="clean purple" style="margin-top:var(--element-gap); display:flex; flex-direction:column; gap:var(--element-gap);">
+                    <li>Sandboxed URL browsing</li>
+                    <li>Full page screenshot capture</li>
+                    <li>DOM content &amp; JS trace</li>
+                    <li>Network request logging</li>
+                    <li>Cookie &amp; header analysis</li>
+                </ul>
+            </div>
+            <div class="card-panel glow-purple reveal">
+                <h3 class="accent-purple">Threat Scoring</h3>
+                <ul class="clean purple" style="margin-top:var(--element-gap); display:flex; flex-direction:column; gap:var(--element-gap);">
+                    <li>Overall malicious score</li>
+                    <li>Suspicious indicator flags</li>
+                    <li>TLS certificate validity</li>
+                    <li>Redirect chain analysis</li>
+                    <li>Third-party resource risk</li>
+                </ul>
+            </div>
+            <div class="card-panel glow-purple reveal">
+                <h3 class="accent-purple">Multi-Source Verdict</h3>
+                <ul class="clean purple" style="margin-top:var(--element-gap); display:flex; flex-direction:column; gap:var(--element-gap);">
+                    <li>Combines VT + AbuseIPDB + URLScan results</li>
+                    <li>Cross-validates findings across sources</li>
+                    <li>Aggregate threat flag count</li>
+                    <li>Final verdict: <span class="tag danger">MALICIOUS</span> or <span class="tag safe">CLEAR</span></li>
+                </ul>
+            </div>
+        </div>
+        <p class="reveal" style="margin-top:var(--content-gap); font-family:var(--font-mono); font-size:var(--label-size); color:var(--text-dim); text-align:center;">API: URLScan.io v1 &bull; /api/v1/search/?q={query} &bull; CORS: Proxied via corsproxy.io</p>
+    </div>
+    <div class="footer-bar"><span>CyberGuard Pro &mdash; Confidential Academic Presentation</span><span>08 / 35</span></div>
+</section>
+
+<!-- ============================================================
+     SLIDE 09 — THREAT INTEL WORKFLOW
+     ============================================================ -->
+<section class="slide gradient-mesh grid-bg">
+    <div class="top-line"></div>
+    <div class="slide-content">
+        <div class="slide-header reveal"><span class="section-badge">01 &bull; Threat Intel</span></div>
+        <h2 class="reveal">End-to-End Threat Intelligence Workflow</h2>
+        <div class="flow-row reveal" style="margin-top:var(--content-gap);">
+            <div class="flow-box cyan">User Input<br><span style="font-size:var(--label-size);color:var(--text-dim);">IP / Domain / Hash</span></div>
+            <span class="flow-arrow">&rarr;</span>
+            <div class="flow-box cyan">Input Validation<br>&amp; Sanitization</div>
+            <span class="flow-arrow">&rarr;</span>
+            <div class="flow-box" style="border-color:rgba(0,212,255,0.4); background:rgba(0,212,255,0.05); display:flex; flex-direction:column; gap:3px; padding:clamp(0.3rem,0.6vw,0.5rem);">
+                <span style="font-size:var(--label-size); color:var(--accent-cyan);">PARALLEL QUERIES</span>
+                <span class="tag info" style="font-size:var(--label-size);">VirusTotal API v3</span>
+                <span class="tag safe" style="font-size:var(--label-size);">AbuseIPDB API v2</span>
+                <span class="tag" style="background:var(--accent-purple-glow);color:var(--accent-purple);font-size:var(--label-size);">URLScan.io API v1</span>
+            </div>
+            <span class="flow-arrow">&rarr;</span>
+            <div class="flow-box cyan">Results<br>Aggregation</div>
+            <span class="flow-arrow">&rarr;</span>
+            <div style="display:flex; flex-direction:column; gap:4px;">
+                <div class="flow-box red">MALICIOUS</div>
+                <div class="flow-box green">CLEAR</div>
+            </div>
+        </div>
+        <div class="cols-3 reveal" style="margin-top:var(--content-gap);">
+            <div class="card-panel"><h3 class="accent" style="font-size:var(--small-size);">Input Types</h3><p>IPv4 regex, domain regex, MD5 (32 hex), SHA-1 (40 hex), SHA-256 (64 hex)</p></div>
+            <div class="card-panel"><h3 class="accent" style="font-size:var(--small-size);">State Management</h3><p>ThreatIntelState tracks: currentSearch, sources (loading/data/error per API), verdict, searchHistory</p></div>
+            <div class="card-panel"><h3 class="accent" style="font-size:var(--small-size);">Verdict Logic</h3><p>If any source sets threatFlag = true, final verdict = MALICIOUS. Otherwise CLEAR/UNVERIFIED.</p></div>
+        </div>
+    </div>
+    <div class="footer-bar"><span>CyberGuard Pro &mdash; Confidential Academic Presentation</span><span>09 / 35</span></div>
+</section>
+
+<!-- ============================================================
+     SLIDE 10 — CRYPTO MODULE OVERVIEW
+     ============================================================ -->
+<section class="slide gradient-mesh grid-bg">
+    <div class="top-line"></div>
+    <div class="slide-content">
+        <div class="slide-header reveal"><span class="section-badge purple">02 &bull; Cryptography</span></div>
+        <h2 class="reveal">Cryptographic Tools Module</h2>
+        <p class="reveal" style="margin-top:var(--element-gap); max-width:80ch;">Cryptography secures data at rest and in transit, verifies integrity, and authenticates identities. Four essential tools powered by CryptoJS &mdash; all client-side, zero data transmitted.</p>
+        <div class="cols-4 reveal" style="margin-top:var(--content-gap);">
+            <div class="card-panel glow-cyan" style="text-align:center;"><div style="font-size:clamp(1.5rem,3vw,2.5rem);margin-bottom:var(--element-gap);">#</div><h3 class="accent" style="font-size:var(--small-size);">Multi-Hash Generator</h3><p>MD5, SHA-1, SHA-256, SHA-512 from any text input</p></div>
+            <div class="card-panel glow-green" style="text-align:center;"><div style="font-size:clamp(1.5rem,3vw,2.5rem);margin-bottom:var(--element-gap);">&#x1F512;</div><h3 class="accent-green" style="font-size:var(--small-size);">Password Analyzer</h3><p>Strength scoring, entropy, composition checks</p></div>
+            <div class="card-panel glow-purple" style="text-align:center;"><div style="font-size:clamp(1.5rem,3vw,2.5rem);margin-bottom:var(--element-gap);">?</div><h3 class="accent-purple" style="font-size:var(--small-size);">Hash Identifier</h3><p>Algorithm detection via pattern &amp; length analysis</p></div>
+            <div class="card-panel glow-orange" style="text-align:center;"><div style="font-size:clamp(1.5rem,3vw,2.5rem);margin-bottom:var(--element-gap);">&#x2714;</div><h3 class="accent-orange" style="font-size:var(--small-size);">File Integrity</h3><p>Upload, hash, compare against known values</p></div>
+        </div>
+        <p class="reveal" style="margin-top:var(--content-gap); font-family:var(--font-mono); font-size:var(--label-size); color:var(--text-dim); text-align:center;">Powered by CryptoJS Library &bull; All computations client-side &bull; No data leaves the browser</p>
+    </div>
+    <div class="footer-bar"><span>CyberGuard Pro &mdash; Confidential Academic Presentation</span><span>10 / 35</span></div>
+</section>
+
+<!-- ============================================================
+     SLIDE 11 — MULTI-HASH GENERATOR
+     ============================================================ -->
+<section class="slide gradient-mesh">
+    <div class="top-line"></div>
+    <div class="slide-content">
+        <div class="slide-header reveal"><span class="section-badge purple">02 &bull; Cryptography</span></div>
+        <h2 class="reveal">Multi-Hash Generator</h2>
+        <div class="flow-row reveal" style="margin-top:var(--content-gap);">
+            <div class="flow-box cyan">Text Input</div>
+            <span class="flow-arrow">&rarr;</span>
+            <div class="flow-box cyan">CryptoJS<br>Hash Engine</div>
+            <span class="flow-arrow">&rarr;</span>
+            <div style="display:flex;flex-direction:column;gap:3px;">
+                <div class="flow-box red">MD5 <span style="font-size:var(--label-size);color:var(--text-dim);">128-bit / 32 chars</span></div>
+                <div class="flow-box yellow">SHA-1 <span style="font-size:var(--label-size);color:var(--text-dim);">160-bit / 40 chars</span></div>
+                <div class="flow-box green">SHA-256 <span style="font-size:var(--label-size);color:var(--text-dim);">256-bit / 64 chars</span></div>
+                <div class="flow-box cyan">SHA-512 <span style="font-size:var(--label-size);color:var(--text-dim);">512-bit / 128 chars</span></div>
+            </div>
+        </div>
+        <div class="cols-3 reveal" style="margin-top:var(--content-gap);">
+            <div class="card-panel"><h3 class="accent" style="font-size:var(--small-size);">Data Integrity</h3><p>Verify files haven't been modified during transfer or storage</p></div>
+            <div class="card-panel"><h3 class="accent" style="font-size:var(--small-size);">Digital Signatures</h3><p>Generate hash digests for document signing workflows</p></div>
+            <div class="card-panel"><h3 class="accent" style="font-size:var(--small-size);">Password Storage</h3><p>Hash passwords before storing &mdash; never store plaintext</p></div>
+        </div>
+        <p class="reveal" style="margin-top:var(--element-gap); font-size:var(--small-size); color:var(--text-dim);">Implementation: Debounced input handler (150ms) &rarr; CryptoJS computation &rarr; Real-time display with copy-to-clipboard</p>
+    </div>
+    <div class="footer-bar"><span>CyberGuard Pro &mdash; Confidential Academic Presentation</span><span>11 / 35</span></div>
+</section>
+
+<!-- ============================================================
+     SLIDE 12 — HASH ALGORITHM COMPARISON
+     ============================================================ -->
+<section class="slide gradient-mesh">
+    <div class="top-line"></div>
+    <div class="slide-content">
+        <div class="slide-header reveal"><span class="section-badge purple">02 &bull; Cryptography</span></div>
+        <h2 class="reveal">Hash Algorithm Comparison</h2>
+        <div class="reveal" style="margin-top:var(--content-gap); overflow:hidden;">
+            <table class="data-table">
+                <thead><tr><th>Algorithm</th><th>Output Length</th><th>Security</th><th>Speed</th><th>Common Use</th></tr></thead>
+                <tbody>
+                    <tr><td style="color:var(--accent-red);font-weight:600;">MD5</td><td>128-bit (32 hex)</td><td><span class="tag danger">BROKEN</span></td><td>Fastest</td><td>Legacy checksums only</td></tr>
+                    <tr><td style="color:var(--accent-yellow);font-weight:600;">SHA-1</td><td>160-bit (40 hex)</td><td><span class="tag warn">DEPRECATED</span></td><td>Fast</td><td>Git commits (legacy)</td></tr>
+                    <tr><td style="color:var(--accent-green);font-weight:600;">SHA-256</td><td>256-bit (64 hex)</td><td><span class="tag safe">SECURE</span></td><td>Moderate</td><td>TLS, blockchain, signatures</td></tr>
+                    <tr><td style="color:var(--accent-cyan);font-weight:600;">SHA-512</td><td>512-bit (128 hex)</td><td><span class="tag safe">SECURE</span></td><td>Moderate</td><td>High-security, HMAC</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="cols-2 reveal" style="margin-top:var(--content-gap);">
+            <div class="card-panel glow-red">
+                <h3 class="accent-red" style="font-size:var(--small-size);">Why MD5 &amp; SHA-1 Are Deprecated</h3>
+                <ul class="clean red" style="margin-top:var(--element-gap); display:flex; flex-direction:column; gap:var(--element-gap);">
+                    <li>MD5 collisions demonstrated in 2004 (Wang et al.)</li>
+                    <li>SHA-1: Google SHAttered attack (2017)</li>
+                    <li>NIST deprecated SHA-1 for signatures in 2011</li>
+                </ul>
+            </div>
+            <div class="card-panel glow-green">
+                <h3 class="accent-green" style="font-size:var(--small-size);">Why SHA-256/512 Are Preferred</h3>
+                <ul class="clean green" style="margin-top:var(--element-gap); display:flex; flex-direction:column; gap:var(--element-gap);">
+                    <li>No known practical collision attacks</li>
+                    <li>SHA-2 family, NIST standardized (FIPS 180-4)</li>
+                    <li>Used in Bitcoin, TLS 1.3, certificate chains</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bar"><span>CyberGuard Pro &mdash; Confidential Academic Presentation</span><span>12 / 35</span></div>
+</section>
+
+<!-- ============================================================
+     SLIDE 13 — PASSWORD ANALYZER
+     ============================================================ -->
+<section class="slide gradient-mesh">
+    <div class="top-line"></div>
+    <div class="slide-content">
+        <div class="slide-header reveal"><span class="section-badge green">02 &bull; Cryptography</span></div>
+        <h2 class="reveal">Password Analyzer</h2>
+        <p class="reveal" style="margin-top:var(--element-gap);">Real-time password strength analysis with entropy calculation, composition checks, and common password detection (90+ dictionary entries).</p>
+        <div class="cols-2" style="margin-top:var(--content-gap);">
+            <div class="card-panel glow-green reveal-left">
+                <h3 class="accent-green">Metrics Evaluated</h3>
+                <ul class="clean green" style="margin-top:var(--element-gap); display:flex; flex-direction:column; gap:var(--element-gap);">
+                    <li><strong style="color:var(--text-primary);">Strength Score</strong> &mdash; WEAK / FAIR / GOOD / EXCELLENT</li>
+                    <li><strong style="color:var(--text-primary);">Entropy (bits)</strong> &mdash; Hartley formula: E = L &times; log&#8322;(R)</li>
+                    <li><strong style="color:var(--text-primary);">Numbers Check</strong> &mdash; Detects digit characters [0-9]</li>
+                    <li><strong style="color:var(--text-primary);">Mixed Case</strong> &mdash; Both uppercase and lowercase present</li>
+                    <li><strong style="color:var(--text-primary);">Special Symbols</strong> &mdash; Non-alphanumeric characters</li>
+                    <li><strong style="color:var(--text-primary);">Common Phrase</strong> &mdash; 90+ known weak passwords</li>
+                </ul>
+            </div>
+            <div class="card-panel reveal-right">
+                <h3 class="accent-green">Strength Meter</h3>
+                <div style="margin-top:var(--element-gap); display:flex; flex-direction:column; gap:clamp(0.3rem,0.6vw,0.5rem);">
+                    <div style="display:flex;align-items:center;gap:clamp(0.3rem,0.6vw,0.5rem);"><span style="font-size:var(--small-size);color:var(--accent-red);font-weight:600;min-width:6ch;">WEAK</span><div style="flex:1;height:6px;background:var(--bg-secondary);border-radius:3px;overflow:hidden;"><div style="width:20%;height:100%;background:var(--accent-red);border-radius:3px;"></div></div><span style="font-size:var(--label-size);color:var(--text-dim);">0&ndash;35 bits</span></div>
+                    <div style="display:flex;align-items:center;gap:clamp(0.3rem,0.6vw,0.5rem);"><span style="font-size:var(--small-size);color:var(--accent-yellow);font-weight:600;min-width:6ch;">FAIR</span><div style="flex:1;height:6px;background:var(--bg-secondary);border-radius:3px;overflow:hidden;"><div style="width:45%;height:100%;background:var(--accent-yellow);border-radius:3px;"></div></div><span style="font-size:var(--label-size);color:var(--text-dim);">36&ndash;59 bits</span></div>
+                    <div style="display:flex;align-items:center;gap:clamp(0.3rem,0.6vw,0.5rem);"><span style="font-size:var(--small-size);color:var(--accent-green);font-weight:600;min-width:6ch;">GOOD</span><div style="flex:1;height:6px;background:var(--bg-secondary);border-radius:3px;overflow:hidden;"><div style="width:70%;height:100%;background:var(--accent-green);border-radius:3px;"></div></div><span style="font-size:var(--label-size);color:var(--text-dim);">60&ndash;79 bits</span></div>
+                    <div style="display:flex;align-items:center;gap:clamp(0.3rem,0.6vw,0.5rem);"><span style="font-size:var(--small-size);color:var(--accent-cyan);font-weight:600;min-width:6ch;">EXCEL</span><div style="flex:1;height:6px;background:var(--bg-secondary);border-radius:3px;overflow:hidden;"><div style="width:100%;height:100%;background:linear-gradient(90deg,var(--accent-cyan),var(--accent-magenta));border-radius:3px;"></div></div><span style="font-size:var(--label-size);color:var(--text-dim);">80+ bits</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bar"><span>CyberGuard Pro &mdash; Confidential Academic Presentation</span><span>13 / 35</span></div>
+</section>
+
+<!-- ============================================================
+     SLIDE 14 — PASSWORD ENTROPY
+     ============================================================ -->
+<section class="slide gradient-mesh">
+    <div class="top-line"></div>
+    <div class="slide-content">
+        <div class="slide-header reveal"><span class="section-badge green">02 &bull; Cryptography</span></div>
+        <h2 class="reveal">Password Entropy Explained</h2>
+        <p class="reveal" style="margin-top:var(--element-gap);">Entropy measures randomness and unpredictability in bits. Higher entropy = exponentially harder to brute-force.</p>
+        <div class="card-panel glow-cyan reveal" style="text-align:center; margin-top:var(--content-gap); padding:clamp(0.5rem,1vw,0.8rem);">
+            <span style="font-family:var(--font-display); font-size:clamp(1.2rem,2.5vw,2rem); color:var(--accent-cyan);">Entropy = L &times; log&#8322;(R)</span>
+            <p style="margin-top:var(--element-gap);">R = character set size &nbsp;&bull;&nbsp; L = password length &nbsp;&bull;&nbsp; Each added bit doubles the search space</p>
+        </div>
+        <div class="cols-2 reveal" style="margin-top:var(--content-gap);">
+            <div class="card-panel">
+                <h3 class="accent" style="font-size:var(--small-size);">Character Pool Sizes</h3>
+                <table class="data-table" style="margin-top:var(--element-gap);">
+                    <tr><td>Lowercase [a-z]</td><td style="color:var(--accent-cyan);">+26</td></tr>
+                    <tr><td>Uppercase [A-Z]</td><td style="color:var(--accent-cyan);">+26</td></tr>
+                    <tr><td>Digits [0-9]</td><td style="color:var(--accent-cyan);">+10</td></tr>
+                    <tr><td>Symbols [!@#$...]</td><td style="color:var(--accent-cyan);">+32</td></tr>
+                    <tr><td style="color:var(--text-primary);font-weight:600;">Full pool</td><td style="color:var(--accent-cyan);font-weight:600;">= 94</td></tr>
+                </table>
+            </div>
+            <div class="card-panel">
+                <h3 class="accent" style="font-size:var(--small-size);">Entropy Examples</h3>
+                <table class="data-table" style="margin-top:var(--element-gap);">
+                    <thead><tr><th>Password</th><th>Entropy</th><th>Crack Time</th></tr></thead>
+                    <tr><td style="font-family:var(--font-mono);color:var(--accent-yellow);">password</td><td>37.6 bits</td><td style="color:var(--accent-red);">Minutes</td></tr>
+                    <tr><td style="font-family:var(--font-mono);color:var(--accent-yellow);">P@ss1234</td><td>52.4 bits</td><td style="color:var(--accent-yellow);">Hours</td></tr>
+                    <tr><td style="font-family:var(--font-mono);color:var(--accent-green);">Tr0ub4d&amp;r3</td><td>65.5 bits</td><td style="color:var(--accent-green);">Years</td></tr>
+                    <tr><td style="font-family:var(--font-mono);color:var(--accent-cyan);">K8#mZ!q9@fP2$</td><td>85.2 bits</td><td style="color:var(--accent-cyan);">Centuries</td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bar"><span>CyberGuard Pro &mdash; Confidential Academic Presentation</span><span>14 / 35</span></div>
+</section>
+
+<!-- ============================================================
+     SLIDE 15 — HASH IDENTIFIER
+     ============================================================ -->
+<section class="slide gradient-mesh">
+    <div class="top-line"></div>
+    <div class="slide-content">
+        <div class="slide-header reveal"><span class="section-badge purple">02 &bull; Cryptography</span></div>
+        <h2 class="reveal">Smart Hash Identifier</h2>
+        <p class="reveal" style="margin-top:var(--element-gap);">Given an unknown hash string, instantly identifies the likely algorithm using hexadecimal validation and length-based pattern recognition.</p>
+        <div class="flow-row reveal" style="margin-top:var(--content-gap);">
+            <div class="flow-box purple">Unknown Hash</div><span class="flow-arrow">&rarr;</span>
+            <div class="flow-box purple">Hex Validation</div><span class="flow-arrow">&rarr;</span>
+            <div class="flow-box purple">Length Analysis</div><span class="flow-arrow">&rarr;</span>
+            <div class="flow-box purple">Algorithm ID</div><span class="flow-arrow">&rarr;</span>
+            <div class="flow-box purple">Confidence %</div>
+        </div>
+        <div class="cols-2 reveal" style="margin-top:var(--content-gap);">
+            <div class="card-panel glow-purple">
+                <h3 class="accent-purple" style="font-size:var(--small-size);">Length-Based Detection</h3>
+                <table class="data-table" style="margin-top:var(--element-gap);">
+                    <thead><tr><th>Length</th><th>Algorithm</th><th>Confidence</th></tr></thead>
+                    <tr><td>32 chars</td><td>MD5</td><td style="color:var(--accent-green);">98%</td></tr>
+                    <tr><td>40 chars</td><td>SHA-1</td><td style="color:var(--accent-green);">98%</td></tr>
+                    <tr><td>64 chars</td><td>SHA-256</td><td style="color:var(--accent-green);">98%</td></tr>
+                    <tr><td>128 chars</td><td>SHA-512</td><td style="color:var(--accent-green);">98%</td></tr>
+                </table>
+            </div>
+            <div class="card-panel glow-purple">
+                <h3 class="accent-purple" style="font-size:var(--small-size);">Use Cases</h3>
+                <ul class="clean purple" style="margin-top:var(--element-gap); display:flex; flex-direction:column; gap:var(--element-gap);">
+                    <li><strong style="color:var(--text-primary);">Digital Forensics</strong> &mdash; Identify hash types in malware samples</li>
+                    <li><strong style="color:var(--text-primary);">Reverse Engineering</strong> &mdash; Determine hashing schemes</li>
+                    <li><strong style="color:var(--text-primary);">Incident Response</strong> &mdash; Classify IoCs quickly</li>
+                    <li><strong style="color:var(--text-primary);">CTF Competitions</strong> &mdash; Speed up hash cracking</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bar"><span>CyberGuard Pro &mdash; Confidential Academic Presentation</span><span>15 / 35</span></div>
+</section>
+
+<!-- ============================================================
+     SLIDE 16 — FILE INTEGRITY CHECKER
+     ============================================================ -->
+<section class="slide gradient-mesh">
+    <div class="top-line"></div>
+    <div class="slide-content">
+        <div class="slide-header reveal"><span class="section-badge orange">02 &bull; Cryptography</span></div>
+        <h2 class="reveal">File Integrity Checker</h2>
+        <p class="reveal" style="margin-top:var(--element-gap);">Verify files have not been tampered with &mdash; compute cryptographic hashes and compare against known-good values. Fully client-side via FileReader API.</p>
+        <div class="flow-row reveal" style="margin-top:var(--content-gap);">
+            <div class="flow-box orange">File Upload<br><span style="font-size:var(--label-size);color:var(--text-dim);">Drag &amp; Drop</span></div><span class="flow-arrow">&rarr;</span>
+            <div class="flow-box orange">FileReader API</div><span class="flow-arrow">&rarr;</span>
+            <div class="flow-box orange">CryptoJS Hash</div><span class="flow-arrow">&rarr;</span>
+            <div class="flow-box orange">Compare</div><span class="flow-arrow">&rarr;</span>
+            <div style="display:flex;flex-direction:column;gap:3px;"><div class="flow-box green">MATCH &#x2714;</div><div class="flow-box red">MISMATCH &#x2718;</div></div>
+        </div>
+        <div class="cols-2 reveal" style="margin-top:var(--content-gap);">
+            <div class="card-panel glow-orange">
+                <h3 class="accent-orange" style="font-size:var(--small-size);">How It Works</h3>
+                <ul class="clean orange" style="margin-top:var(--element-gap); display:flex; flex-direction:column; gap:var(--element-gap);">
+                    <li>User uploads file (drag-and-drop or click-to-browse)</li>
+                    <li>File read via FileReader API &mdash; client-side only</li>
+                    <li>CryptoJS computes hash using selected algorithm</li>
+                    <li>Computed hash displayed with copy functionality</li>
+                    <li>User enters expected hash for comparison</li>
+                    <li>Match result: green (MATCH) or red (MISMATCH)</li>
+                </ul>
+            </div>
+            <div class="card-panel glow-orange">
+                <h3 class="accent-orange" style="font-size:var(--small-size);">Use Cases</h3>
+                <ul class="clean orange" style="margin-top:var(--element-gap); display:flex; flex-direction:column; gap:var(--element-gap);">
+                    <li><strong style="color:var(--text-primary);">Software Distribution</strong> &mdash; Verify downloaded installers match publisher hash</li>
+                    <li><strong style="color:var(--text-primary);">Forensic Evidence</strong> &mdash; Chain of custody integrity for digital evidence</li>
+                    <li><strong style="color:var(--text-primary);">Compliance</strong> &mdash; Meet PCI-DSS, HIPAA file integrity requirements</li>
+                    <li><strong style="color:var(--text-primary);">Supply Chain</strong> &mdash; Validate package checksums before deployment</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bar"><span>CyberGuard Pro &mdash; Confidential Academic Presentation</span><span>16 / 35</span></div>
+</section>
+
+<!-- ============================================================
+     SLIDE 17 — CRYPTO SUMMARY
+     ============================================================ -->
+<section class="slide gradient-mesh grid-bg">
+    <div class="top-line"></div>
+    <div class="slide-content">
+        <div class="slide-header reveal"><span class="section-badge purple">02 &bull; Cryptography</span></div>
+        <h2 class="reveal">Cryptography Module Summary</h2>
+        <div class="flow-row reveal" style="margin-top:var(--content-gap);">
+            <div class="flow-box cyan" style="padding:clamp(0.4rem,1vw,0.7rem) clamp(0.8rem,1.5vw,1.2rem);">Multi-Hash<br>Generator</div>
+            <div class="flow-box green" style="padding:clamp(0.4rem,1vw,0.7rem) clamp(0.8rem,1.5vw,1.2rem);">Password<br>Analyzer</div>
+            <div class="flow-box purple" style="padding:clamp(0.4rem,1vw,0.7rem) clamp(0.8rem,1.5vw,1.2rem);">Hash<br>Identifier</div>
+            <div class="flow-box orange" style="padding:clamp(0.4rem,1vw,0.7rem) clamp(0.8rem,1.5vw,1.2rem);">File Integrity<br>Checker</div>
+        </div>
+        <div class="cols-3 reveal" style="margin-top:var(--content-gap);">
+            <div class="card-panel glow-cyan" style="text-align:center;">
+                <h3 class="accent">Data Integrity</h3>
+                <p style="margin-top:var(--element-gap);">Verify data has not been altered or corrupted during transfer, storage, or processing</p>
+            </div>
+            <div class="card-panel glow-green" style="text-align:center;">
+                <h3 class="accent-green">Authentication</h3>
+                <p style="margin-top:var(--element-gap);">Validate identities and credentials through cryptographic strength verification</p>
+            </div>
+            <div class="card-panel glow-purple" style="text-align:center;">
+                <h3 class="accent-purple">Security Verification</h3>
+                <p style="margin-top:var(--element-gap);">Analyze password strength and identify hash algorithms for forensic analysis</p>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bar"><span>CyberGuard Pro &mdash; Confidential Academic Presentation</span><span>17 / 35</span></div>
+</section>
+
+<!-- ============================================================
+     SLIDE 18 — PROJECTS MODULE OVERVIEW
+     ============================================================ -->
+<section class="slide gradient-mesh grid-bg">
+    <div class="top-line"></div>
+    <div class="slide-content">
+        <div class="slide-header reveal"><span class="section-badge orange">03 &bull; Projects</span></div>
+        <h2 class="reveal">Projects &amp; Collaboration Module</h2>
+        <p class="reveal" style="margin-top:var(--element-gap);">Organize security assessments as structured projects with team collaboration, target management, scan execution, and findings tracking.</p>
+        <div class="cols-3 reveal" style="margin-top:var(--content-gap);">
+            <div class="card-panel glow-cyan" style="text-align:center;"><h3 class="accent">My Projects</h3><p style="margin-top:var(--element-gap);">Projects you own and manage. Full CRUD with administrative control.</p></div>
+            <div class="card-panel glow-green" style="text-align:center;"><h3 class="accent-green">Collaborating</h3><p style="margin-top:var(--element-gap);">Projects you've been invited to. View and contribute to team assessments.</p></div>
+            <div class="card-panel glow-orange" style="text-align:center;"><h3 class="accent-orange">Roles</h3><p style="margin-top:var(--element-gap);"><strong style="color:var(--text-primary);">Owner:</strong> full control. <strong style="color:var(--text-primary);">Collaborator:</strong> view &amp; contribute.</p></div>
+        </div>
+        <div class="card-panel reveal" style="margin-top:var(--content-gap);">
+            <p style="font-family:var(--font-mono); font-size:var(--label-size); color:var(--text-dim);">API Endpoints: &nbsp; GET/POST /api/projects &nbsp;&bull;&nbsp; GET/PATCH/DELETE /api/projects/{id} &nbsp;&bull;&nbsp; POST /api/projects/{id}/invite &nbsp;&bull;&nbsp; GET/PATCH/DELETE /api/projects/{id}/collaborators/{user}</p>
+        </div>
+    </div>
+    <div class="footer-bar"><span>CyberGuard Pro &mdash; Confidential Academic Presentation</span><span>18 / 35</span></div>
+</section>
+
+<!-- ============================================================
+     SLIDE 19 — CREATING A PROJECT
+     ============================================================ -->
+<section class="slide gradient-mesh">
+    <div class="top-line"></div>
+    <div class="slide-content">
+        <div class="slide-header reveal"><span class="section-badge orange">03 &bull; Projects</span></div>
+        <h2 class="reveal">Creating a New Project</h2>
+        <div class="cols-4 reveal" style="margin-top:var(--content-gap);">
+            <div class="card-panel glow-cyan" style="text-align:center;"><div style="font-size:clamp(1.5rem,3vw,2.5rem);color:var(--accent-cyan);font-weight:700;">1</div><h3 style="font-size:var(--small-size);">New Project</h3><p>Click "+ New Project" from the Projects tab</p></div>
+            <div class="card-panel glow-cyan" style="text-align:center;"><div style="font-size:clamp(1.5rem,3vw,2.5rem);color:var(--accent-cyan);font-weight:700;">2</div><h3 style="font-size:var(--small-size);">Set Details</h3><p>Name, description, start date, end date</p></div>
+            <div class="card-panel glow-cyan" style="text-align:center;"><div style="font-size:clamp(1.5rem,3vw,2.5rem);color:var(--accent-cyan);font-weight:700;">3</div><h3 style="font-size:var(--small-size);">Created</h3><p>Status: Active. Owner role assigned automatically</p></div>
+            <div class="card-panel glow-cyan" style="text-align:center;"><div style="font-size:clamp(1.5rem,3vw,2.5rem);color:var(--accent-cyan);font-weight:700;">4</div><h3 style="font-size:var(--small-size);">Get Started</h3><p>Add targets &amp; invite collaborators</p></div>
+        </div>
+        <div class="card-panel reveal" style="margin-top:var(--content-gap);">
+            <h3 class="accent-orange" style="font-size:var(--small-size);">Project Fields</h3>
+            <div class="cols-3" style="margin-top:var(--element-gap); gap:var(--element-gap);">
+                <p><strong class="accent">Name</strong> &mdash; Project title (required)</p>
+                <p><strong class="accent">Description</strong> &mdash; Scope and objectives</p>
+                <p><strong class="accent">Start/End Date</strong> &mdash; Assessment timeline</p>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bar"><span>CyberGuard Pro &mdash; Confidential Academic Presentation</span><span>19 / 35</span></div>
+</section>
+
+<!-- ============================================================
+     SLIDE 20 — PROJECT DASHBOARD
+     ============================================================ -->
+<section class="slide gradient-mesh">
+    <div class="top-line"></div>
+    <div class="slide-content">
+        <div class="slide-header reveal"><span class="section-badge orange">03 &bull; Projects</span></div>
+        <h2 class="reveal">Project Dashboard Tabs</h2>
+        <p class="reveal" style="margin-top:var(--element-gap);">Each project has a dedicated dashboard with five tabs for comprehensive security assessment management.</p>
+        <div style="display:flex; gap:clamp(0.2rem,0.4vw,0.3rem); margin-top:var(--content-gap);" class="reveal">
+            <div style="flex:1; background:var(--accent-cyan); border-radius:6px 6px 0 0; padding:clamp(0.2rem,0.5vw,0.4rem); text-align:center; font-weight:600; font-size:var(--small-size); color:var(--bg-primary);">Overview</div>
+            <div style="flex:1; background:var(--accent-green); border-radius:6px 6px 0 0; padding:clamp(0.2rem,0.5vw,0.4rem); text-align:center; font-weight:600; font-size:var(--small-size); color:var(--bg-primary);">Team</div>
+            <div style="flex:1; background:var(--accent-yellow); border-radius:6px 6px 0 0; padding:clamp(0.2rem,0.5vw,0.4rem); text-align:center; font-weight:600; font-size:var(--small-size); color:var(--bg-primary);">Settings</div>
+            <div style="flex:1; background:var(--accent-orange); border-radius:6px 6px 0 0; padding:clamp(0.2rem,0.5vw,0.4rem); text-align:center; font-weight:600; font-size:var(--small-size); color:var(--bg-primary);">Targets</div>
+            <div style="flex:1; background:var(--accent-red); border-radius:6px 6px 0 0; padding:clamp(0.2rem,0.5vw,0.4rem); text-align:center; font-weight:600; font-size:var(--small-size); color:var(--bg-primary);">Findings</div>
+        </div>
+        <div class="cols-3 reveal" style="gap:var(--element-gap); margin-top:1px;">
+            <div class="card-panel"><h3 class="accent" style="font-size:var(--small-size);">Overview</h3><p>Project summary, status, creation date, quick statistics</p></div>
+            <div class="card-panel"><h3 class="accent-green" style="font-size:var(--small-size);">Team</h3><p>Collaborator list, invite members, manage roles (Owner / Collaborator)</p></div>
+            <div class="card-panel"><h3 class="accent-yellow" style="font-size:var(--small-size);">Settings</h3><p>Edit details, update dates, change status, delete project</p></div>
+        </div>
+        <div class="cols-2 reveal" style="gap:var(--element-gap); margin-top:var(--element-gap);">
+            <div class="card-panel"><h3 class="accent-orange" style="font-size:var(--small-size);">Targets</h3><p>Manage domains, IPs, URLs with type badges and scan controls. Input validated against IP/domain regex with XSS prevention.</p></div>
+            <div class="card-panel"><h3 class="accent-red" style="font-size:var(--small-size);">Findings</h3><p>Discovered vulnerabilities organized by target with severity levels: Critical / Warning / Info.</p></div>
+        </div>
+    </div>
+    <div class="footer-bar"><span>CyberGuard Pro &mdash; Confidential Academic Presentation</span><span>20 / 35</span></div>
+</section>
+
+<!-- ============================================================
+     SLIDE 21 — ADDING TARGETS
+     ============================================================ -->
+<section class="slide gradient-mesh">
+    <div class="top-line"></div>
+    <div class="slide-content">
+        <div class="slide-header reveal"><span class="section-badge orange">03 &bull; Projects</span></div>
+        <h2 class="reveal">Adding Targets to a Project</h2>
+        <div class="cols-2" style="margin-top:var(--content-gap);">
+            <div class="card-panel glow-orange reveal-left">
+                <h3 class="accent-orange">How to Add a Target</h3>
+                <ul class="clean orange" style="margin-top:var(--element-gap); display:flex; flex-direction:column; gap:var(--element-gap);">
+                    <li>Open project &rarr; Navigate to <strong style="color:var(--text-primary);">Targets</strong> tab</li>
+                    <li>Click <strong style="color:var(--text-primary);">"+ Add Target"</strong> button</li>
+                    <li>Enter a valid domain or IP address</li>
+                    <li>Input validated via regex &mdash; XSS prevention via HTML encoding</li>
+                    <li>Target added with auto-detected type badge</li>
+                    <li>Scan button appears for each target</li>
+                </ul>
+            </div>
+            <div class="reveal-right" style="display:flex;flex-direction:column;gap:var(--element-gap);">
+                <div class="card-panel">
+                    <h3 class="accent-orange" style="font-size:var(--small-size);">Target Types</h3>
+                    <div style="margin-top:var(--element-gap);display:flex;gap:var(--element-gap);">
+                        <span class="tag info">Domain</span>
+                        <span style="font-size:var(--small-size);color:var(--text-secondary);">example.com</span>
+                    </div>
+                    <div style="margin-top:var(--element-gap);display:flex;gap:var(--element-gap);">
+                        <span class="tag safe">IP</span>
+                        <span style="font-size:var(--small-size);color:var(--text-secondary);">192.168.1.1</span>
+                    </div>
+                </div>
+                <div class="card-panel" style="font-family:var(--font-mono); font-size:var(--label-size);">
+                    <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--border-subtle);"><span style="color:var(--text-primary);">example.com</span><span class="tag info" style="font-size:calc(var(--label-size) * 0.9);">Domain</span><span style="color:var(--accent-cyan);cursor:pointer;">[Scan]</span></div>
+                    <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--border-subtle);"><span style="color:var(--text-primary);">192.168.1.100</span><span class="tag safe" style="font-size:calc(var(--label-size) * 0.9);">IP</span><span style="color:var(--accent-green);">Scanned</span></div>
+                    <div style="display:flex;justify-content:space-between;padding:4px 0;"><span style="color:var(--text-primary);">api.target.org</span><span class="tag info" style="font-size:calc(var(--label-size) * 0.9);">Domain</span><span style="color:var(--accent-yellow);">Scanning...</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bar"><span>CyberGuard Pro &mdash; Confidential Academic Presentation</span><span>21 / 35</span></div>
+</section>
+
+<!-- ============================================================
+     SLIDE 22 — RUNNING SCANS
+     ============================================================ -->
+<section class="slide gradient-mesh">
+    <div class="top-line"></div>
+    <div class="slide-content">
+        <div class="slide-header reveal"><span class="section-badge orange">03 &bull; Projects</span></div>
+        <h2 class="reveal">Running Scans on Targets</h2>
+        <div class="cols-2" style="margin-top:var(--content-gap);">
+            <div class="card-panel glow-cyan reveal-left">
+                <h3 class="accent">Scanning Workflow</h3>
+                <ul class="clean" style="margin-top:var(--element-gap); display:flex; flex-direction:column; gap:var(--element-gap);">
+                    <li>Click <strong style="color:var(--text-primary);">"Scan"</strong> on any target</li>
+                    <li>Scanner Selection Modal appears</li>
+                    <li>Available scanners by category: <span class="tag safe">RECON</span> <span class="tag danger">VULN</span></li>
+                    <li>Select one or more scanners</li>
+                    <li>Click <strong style="color:var(--text-primary);">"Start Scan"</strong> to execute</li>
+                    <li>Results streamed to Findings tab</li>
+                </ul>
+            </div>
+            <div class="reveal-right" style="display:flex;flex-direction:column;gap:var(--element-gap);">
+                <div class="card-panel glow-green">
+                    <div style="display:flex;align-items:center;gap:var(--element-gap);margin-bottom:var(--element-gap);"><span class="tag safe">RECON</span><h3 style="font-size:var(--small-size);">Custom Subdomain Enum &amp; Analysis</h3></div>
+                    <p>Discovers subdomains and analyzes DNS records for target domains</p>
+                </div>
+                <div class="card-panel glow-green">
+                    <div style="display:flex;align-items:center;gap:var(--element-gap);margin-bottom:var(--element-gap);"><span class="tag safe">RECON</span><h3 style="font-size:var(--small-size);">Web Endpoint Fuzzer &amp; Classifier</h3></div>
+                    <p>Discovers hidden endpoints and classifies HTTP responses</p>
+                </div>
+            </div>
+        </div>
+        <p class="reveal" style="margin-top:var(--content-gap);font-size:var(--small-size);color:var(--text-dim);text-align:center;">Multiple scanners can run simultaneously &bull; Backend API manages scan queuing &amp; execution</p>
+    </div>
+    <div class="footer-bar"><span>CyberGuard Pro &mdash; Confidential Academic Presentation</span><span>22 / 35</span></div>
+</section>
+
+<!-- ============================================================
+     SLIDE 23 — TEAM & COLLABORATION
+     ============================================================ -->
+<section class="slide gradient-mesh">
+    <div class="top-line"></div>
+    <div class="slide-content">
+        <div class="slide-header reveal"><span class="section-badge green">03 &bull; Projects</span></div>
+        <h2 class="reveal">Team &amp; Collaboration</h2>
+        <div class="cols-2" style="margin-top:var(--content-gap);">
+            <div class="card-panel glow-green reveal-left">
+                <h3 class="accent-green">Roles &amp; Permissions</h3>
+                <div class="cols-2" style="margin-top:var(--element-gap); gap:var(--element-gap);">
+                    <div><h3 class="accent" style="font-size:var(--small-size);">Owner</h3><ul class="clean" style="margin-top:4px;display:flex;flex-direction:column;gap:3px;"><li>Create, edit, delete</li><li>Invite/remove members</li><li>Full admin control</li></ul></div>
+                    <div><h3 class="accent-orange" style="font-size:var(--small-size);">Collaborator</h3><ul class="clean orange" style="margin-top:4px;display:flex;flex-direction:column;gap:3px;"><li>View project &amp; targets</li><li>Contribute findings</li><li>Run scans</li></ul></div>
+                </div>
+            </div>
+            <div class="card-panel glow-green reveal-right">
+                <h3 class="accent-green">Invitation Flow</h3>
+                <ul class="clean green" style="margin-top:var(--element-gap); display:flex; flex-direction:column; gap:var(--element-gap);">
+                    <li>Owner clicks "Invite Member" in Team tab</li>
+                    <li>Enter collaborator's email address</li>
+                    <li>Backend sends invitation email</li>
+                    <li>Invitee receives link &rarr; invite.html</li>
+                    <li>Accepts &rarr; added as Collaborator</li>
+                    <li>Project appears in "Collaborating" tab</li>
+                </ul>
+            </div>
+        </div>
+        <div class="card-panel reveal" style="margin-top:var(--content-gap);">
+            <p style="font-size:var(--small-size);"><strong class="accent-green">Collaborating Tab:</strong> Projects others invite you to appear separately from "My Projects." ProjectManager maintains ownedProjects[] and collaboratingProjects[] arrays, fetched from a single GET /api/projects response.</p>
+        </div>
+    </div>
+    <div class="footer-bar"><span>CyberGuard Pro &mdash; Confidential Academic Presentation</span><span>23 / 35</span></div>
+</section>
+
+<!-- ============================================================
+     SLIDE 24 — FINDINGS TAB
+     ============================================================ -->
+<section class="slide gradient-mesh">
+    <div class="top-line"></div>
+    <div class="slide-content">
+        <div class="slide-header reveal"><span class="section-badge red">03 &bull; Projects</span></div>
+        <h2 class="reveal">Findings &amp; Severity Classification</h2>
+        <div class="cols-2" style="margin-top:var(--content-gap);">
+            <div class="card-panel glow-red reveal-left">
+                <h3 class="accent-red">Severity Levels</h3>
+                <div style="margin-top:var(--element-gap); display:flex; flex-direction:column; gap:var(--element-gap);">
+                    <div style="display:flex;align-items:flex-start;gap:var(--element-gap);"><div style="width:4px;min-height:30px;background:var(--accent-red);border-radius:2px;flex-shrink:0;"></div><div><strong style="color:var(--accent-red);">Critical</strong><p>Immediate exploitation risk, requires urgent remediation</p></div></div>
+                    <div style="display:flex;align-items:flex-start;gap:var(--element-gap);"><div style="width:4px;min-height:30px;background:var(--accent-yellow);border-radius:2px;flex-shrink:0;"></div><div><strong style="color:var(--accent-yellow);">Warning</strong><p>Potential vulnerability, should be investigated</p></div></div>
+                    <div style="display:flex;align-items:flex-start;gap:var(--element-gap);"><div style="width:4px;min-height:30px;background:var(--accent-cyan);border-radius:2px;flex-shrink:0;"></div><div><strong style="color:var(--accent-cyan);">Info</strong><p>Informational, no immediate security impact</p></div></div>
+                </div>
+            </div>
+            <div class="card-panel reveal-right">
+                <h3 class="accent-red">Finding Structure</h3>
+                <ul class="clean red" style="margin-top:var(--element-gap); display:flex; flex-direction:column; gap:var(--element-gap);">
+                    <li>Target association (which domain/IP)</li>
+                    <li>Scanner that discovered the finding</li>
+                    <li>Severity level classification</li>
+                    <li>Title, description, and evidence</li>
+                    <li>Discovery timestamp</li>
+                </ul>
+                <div style="margin-top:var(--content-gap);">
+                    <h3 style="font-size:var(--small-size);color:var(--text-primary);">Summary Bar</h3>
+                    <p style="margin-top:4px;">Total Issues &bull; Scan Duration &bull; Target &bull; Severity breakdown counts</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bar"><span>CyberGuard Pro &mdash; Confidential Academic Presentation</span><span>24 / 35</span></div>
+</section>
+
+<!-- ============================================================
+     SLIDE 25 — FULL PROJECT WORKFLOW
+     ============================================================ -->
+<section class="slide gradient-mesh grid-bg">
+    <div class="top-line"></div>
+    <div class="slide-content">
+        <div class="slide-header reveal"><span class="section-badge orange">03 &bull; Projects</span></div>
+        <h2 class="reveal">Full Project Workflow</h2>
+        <div class="flow-row reveal" style="margin-top:var(--content-gap);">
+            <div class="flow-box cyan">Create<br>Project</div><span class="flow-arrow">&rarr;</span>
+            <div class="flow-box orange">Add<br>Targets</div><span class="flow-arrow">&rarr;</span>
+            <div class="flow-box green">Invite<br>Team</div><span class="flow-arrow">&rarr;</span>
+            <div class="flow-box purple">Run<br>Scans</div><span class="flow-arrow">&rarr;</span>
+            <div class="flow-box yellow">Scan<br>Executes</div><span class="flow-arrow">&rarr;</span>
+            <div class="flow-box red">Findings<br>Logged</div>
+        </div>
+        <div class="cols-4 reveal" style="margin-top:var(--content-gap);">
+            <div class="card-panel"><h3 class="accent" style="font-size:var(--small-size);">Project Setup</h3><p>Define scope, objectives, timeline, and ownership</p></div>
+            <div class="card-panel"><h3 class="accent-orange" style="font-size:var(--small-size);">Target Mgmt</h3><p>Add domains/IPs with input validation and XSS prevention</p></div>
+            <div class="card-panel"><h3 class="accent-purple" style="font-size:var(--small-size);">Scan Execution</h3><p>Choose RECON/VULN scanners. Backend queues execution.</p></div>
+            <div class="card-panel"><h3 class="accent-red" style="font-size:var(--small-size);">Reporting</h3><p>Findings by severity. Full audit trail per project.</p></div>
+        </div>
+        <p class="reveal" style="margin-top:var(--content-gap);text-align:center;font-size:var(--small-size);color:var(--text-dim);">End-to-end: from project creation to actionable security findings &mdash; all within a single unified interface.</p>
+    </div>
+    <div class="footer-bar"><span>CyberGuard Pro &mdash; Confidential Academic Presentation</span><span>25 / 35</span></div>
+</section>
+
+<!-- ============================================================
+     SLIDE 26 — PROJECT KEY BENEFITS
+     ============================================================ -->
+<section class="slide gradient-mesh">
+    <div class="top-line"></div>
+    <div class="slide-content">
+        <div class="slide-header reveal"><span class="section-badge orange">03 &bull; Projects</span></div>
+        <h2 class="reveal">Project Management: Key Benefits</h2>
+        <div style="display:flex; flex-direction:column; gap:var(--element-gap); margin-top:var(--content-gap);">
+            <div class="card-panel reveal" style="border-left:3px solid var(--accent-cyan);"><div class="cols-2-1"><div><h3 class="accent">Organized Assessments</h3><p>Structure security work into discrete projects with clear scope, timelines, and objectives.</p></div><p style="font-size:var(--label-size);color:var(--text-dim);">Defined start/end dates, descriptions, status tracking</p></div></div>
+            <div class="card-panel reveal" style="border-left:3px solid var(--accent-green);"><div class="cols-2-1"><div><h3 class="accent-green">Team Collaboration</h3><p>Built-in invitation system with role-based access. Owners manage, collaborators contribute.</p></div><p style="font-size:var(--label-size);color:var(--text-dim);">Email invitations, accept page, role separation</p></div></div>
+            <div class="card-panel reveal" style="border-left:3px solid var(--accent-orange);"><div class="cols-2-1"><div><h3 class="accent-orange">Full Audit Trail</h3><p>Every scan, finding, and team action tracked within the project context for compliance.</p></div><p style="font-size:var(--label-size);color:var(--text-dim);">Timestamped findings, scanner attribution</p></div></div>
+            <div class="card-panel reveal" style="border-left:3px solid var(--accent-purple);"><div class="cols-2-1"><div><h3 class="accent-purple">Scalable Architecture</h3><p>Multiple projects, targets, and collaborators. RESTful API enables unlimited growth.</p></div><p style="font-size:var(--label-size);color:var(--text-dim);">REST API, Redis queues, WebSocket updates</p></div></div>
+        </div>
+    </div>
+    <div class="footer-bar"><span>CyberGuard Pro &mdash; Confidential Academic Presentation</span><span>26 / 35</span></div>
+</section>
+
+<!-- ============================================================
+     SLIDE 27 — NETWORK ANALYSIS OVERVIEW
+     ============================================================ -->
+<section class="slide gradient-mesh grid-bg">
+    <div class="top-line"></div>
+    <div class="slide-content">
+        <div class="slide-header reveal"><span class="section-badge green">04 &bull; Network</span></div>
+        <h2 class="reveal">Network Analysis Module</h2>
+        <p class="reveal" style="margin-top:var(--element-gap);">Deep intelligence probes for network reconnaissance &mdash; from port scanning to domain registration analysis.</p>
+        <div class="cols-3 reveal" style="margin-top:var(--content-gap);">
+            <div class="card-panel glow-cyan" style="text-align:center;"><h3 class="accent">Port Scanner</h3><p>Shodan-powered port &amp; service detection</p></div>
+            <div class="card-panel glow-green" style="text-align:center;"><h3 class="accent-green">TCP Connectivity</h3><p>Real-time handshake &amp; latency check</p></div>
+            <div class="card-panel" style="text-align:center;"><h3 style="color:var(--accent-yellow);">UDP Services</h3><p>UDP service discovery</p></div>
+        </div>
+        <div class="cols-3 reveal" style="margin-top:var(--element-gap);">
+            <div class="card-panel" style="text-align:center;"><h3 class="accent-purple">IP Geolocation</h3><p>Geographic mapping of IPs</p></div>
+            <div class="card-panel" style="text-align:center;"><h3 class="accent-orange">Reverse DNS</h3><p>IP to hostname resolution</p></div>
+            <div class="card-panel glow-red" style="text-align:center;"><h3 class="accent-red">WHOIS Lookup</h3><p>Domain registration intelligence</p></div>
+        </div>
+        <p class="reveal" style="margin-top:var(--content-gap);text-align:center;font-size:var(--small-size);color:var(--accent-cyan);">This section focuses on: Port Scanner (Shodan) &bull; TCP Connectivity &bull; WHOIS Lookup</p>
+    </div>
+    <div class="footer-bar"><span>CyberGuard Pro &mdash; Confidential Academic Presentation</span><span>27 / 35</span></div>
+</section>
+
+<!-- ============================================================
+     SLIDE 28 — PORT SCANNER
+     ============================================================ -->
+<section class="slide gradient-mesh">
+    <div class="top-line"></div>
+    <div class="slide-content">
+        <div class="slide-header reveal"><span class="section-badge green">04 &bull; Network</span></div>
+        <h2 class="reveal">Port Scanner (Shodan-Powered)</h2>
+        <div class="cols-2" style="margin-top:var(--content-gap);">
+            <div class="reveal-left" style="display:flex;flex-direction:column;gap:var(--element-gap);">
+                <div class="card-panel glow-cyan">
+                    <h3 class="accent" style="font-size:var(--small-size);">Input</h3>
+                    <p style="margin-top:4px;">IP address or domain (validated via regex)</p>
+                </div>
+                <div class="card-panel glow-cyan">
+                    <h3 class="accent" style="font-size:var(--small-size);">Output</h3>
+                    <ul class="clean" style="margin-top:4px;display:flex;flex-direction:column;gap:3px;">
+                        <li>Open ports with protocol (TCP/UDP)</li>
+                        <li>Running service per port</li>
+                        <li>Service version &amp; banner info</li>
+                        <li>Known CVEs linked to services</li>
+                        <li>Host organization, ISP, location</li>
+                        <li>Operating system detection</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card-panel reveal-right">
+                <h3 class="accent" style="font-size:var(--small-size);">Sample Scan Result</h3>
+                <table class="data-table" style="margin-top:var(--element-gap);">
+                    <thead><tr><th>Port</th><th>Service</th><th>Version</th><th>CVEs</th></tr></thead>
+                    <tr><td>80</td><td>HTTP</td><td>nginx 1.21.3</td><td><span class="tag danger">2</span></td></tr>
+                    <tr><td>443</td><td>HTTPS</td><td>nginx 1.21.3</td><td><span class="tag danger">1</span></td></tr>
+                    <tr><td>22</td><td>SSH</td><td>OpenSSH 8.9</td><td><span class="tag safe">0</span></td></tr>
+                    <tr><td>3306</td><td>MySQL</td><td>8.0.31</td><td><span class="tag warn">3</span></td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bar"><span>CyberGuard Pro &mdash; Confidential Academic Presentation</span><span>28 / 35</span></div>
+</section>
+
+<!-- ============================================================
+     SLIDE 29 — PORT SCANNER TECHNICAL FLOW
+     ============================================================ -->
+<section class="slide gradient-mesh grid-bg">
+    <div class="top-line"></div>
+    <div class="slide-content">
+        <div class="slide-header reveal"><span class="section-badge green">04 &bull; Network</span></div>
+        <h2 class="reveal">Port Scanner: Technical Flow</h2>
+        <div class="flow-row reveal" style="margin-top:var(--content-gap);">
+            <div class="flow-box cyan">1. User Input<br><span style="font-size:var(--label-size);color:var(--text-dim);">Target IP/domain</span></div><span class="flow-arrow">&rarr;</span>
+            <div class="flow-box cyan">2. Shodan API<br><span style="font-size:var(--label-size);color:var(--text-dim);">Host query</span></div><span class="flow-arrow">&rarr;</span>
+            <div class="flow-box green">3. Process Data<br><span style="font-size:var(--label-size);color:var(--text-dim);">Ports/services</span></div><span class="flow-arrow">&rarr;</span>
+            <div class="flow-box yellow">4. CVE Cross-Ref<br><span style="font-size:var(--label-size);color:var(--text-dim);">Vulnerability check</span></div><span class="flow-arrow">&rarr;</span>
+            <div class="flow-box cyan">5. Report<br><span style="font-size:var(--label-size);color:var(--text-dim);">Structured output</span></div>
+        </div>
+        <div class="cols-2 reveal" style="margin-top:var(--content-gap);">
+            <div class="card-panel glow-cyan">
+                <h3 class="accent" style="font-size:var(--small-size);">ShodanPortScanner Class</h3>
+                <ul class="clean" style="margin-top:var(--element-gap); display:flex; flex-direction:column; gap:var(--element-gap);">
+                    <li><strong style="color:var(--text-primary);font-family:var(--font-mono);font-size:var(--label-size);">getHostInfo(target)</strong> &mdash; Fetch from Shodan API</li>
+                    <li><strong style="color:var(--text-primary);font-family:var(--font-mono);font-size:var(--label-size);">processHostData(data)</strong> &mdash; Extract ports, services, banners, vulns, location, OS</li>
+                    <li><strong style="color:var(--text-primary);font-family:var(--font-mono);font-size:var(--label-size);">generateReport(data, startTime)</strong> &mdash; Final report with scan stats</li>
+                </ul>
+            </div>
+            <div class="card-panel">
+                <h3 class="accent" style="font-size:var(--small-size);">Report Fields</h3>
+                <ul class="clean" style="margin-top:var(--element-gap); display:flex; flex-direction:column; gap:var(--element-gap);">
+                    <li>target, totalPorts, openPorts[]</li>
+                    <li>services[]: port, name, version, banner</li>
+                    <li>vulnerabilities[]: CVE identifiers</li>
+                    <li>location: city, country, coordinates</li>
+                    <li>os, organization, ISP, hostnames</li>
+                    <li>scanDuration (ms), lastUpdate</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bar"><span>CyberGuard Pro &mdash; Confidential Academic Presentation</span><span>29 / 35</span></div>
+</section>
+
+<!-- ============================================================
+     SLIDE 30 — TCP CONNECTIVITY
+     ============================================================ -->
+<section class="slide gradient-mesh">
+    <div class="top-line"></div>
+    <div class="slide-content">
+        <div class="slide-header reveal"><span class="section-badge green">04 &bull; Network</span></div>
+        <h2 class="reveal">TCP Connectivity Checker</h2>
+        <p class="reveal" style="margin-top:var(--element-gap);">Real-time TCP handshake verification with response time measurement. Verify if specific service ports are reachable.</p>
+        <div class="cols-3 reveal" style="margin-top:var(--content-gap);">
+            <div class="card-panel glow-green">
+                <h3 class="accent-green">Input</h3>
+                <ul class="clean green" style="margin-top:var(--element-gap); display:flex; flex-direction:column; gap:var(--element-gap);">
+                    <li>Host: IP or domain</li>
+                    <li>Port: target number</li>
+                    <li>Both validated before probe</li>
+                </ul>
+            </div>
+            <div class="card-panel glow-green">
+                <h3 class="accent-green">Method</h3>
+                <ul class="clean green" style="margin-top:var(--element-gap); display:flex; flex-direction:column; gap:var(--element-gap);">
+                    <li>WebSocket probing via browser APIs</li>
+                    <li>Measures round-trip time (ms)</li>
+                    <li>Timeout-based detection</li>
+                </ul>
+            </div>
+            <div class="card-panel glow-green">
+                <h3 class="accent-green">Output</h3>
+                <div style="margin-top:var(--element-gap); display:flex; flex-direction:column; gap:var(--element-gap);">
+                    <div style="display:flex;gap:var(--element-gap);"><span class="tag safe">Open</span><span class="tag danger">Closed</span><span class="tag warn">Filtered</span></div>
+                    <p>Response time (ms)</p>
+                    <p>Handshake success/failure</p>
+                </div>
+            </div>
+        </div>
+        <div class="card-panel reveal" style="margin-top:var(--content-gap);">
+            <p style="font-size:var(--small-size);"><strong class="accent-green">Use Case:</strong> Verify firewall rules, check service availability, validate network segmentation, measure latency, confirm targets are live before full vulnerability scans.</p>
+        </div>
+    </div>
+    <div class="footer-bar"><span>CyberGuard Pro &mdash; Confidential Academic Presentation</span><span>30 / 35</span></div>
+</section>
+
+<!-- ============================================================
+     SLIDE 31 — TCP TECHNICAL FLOW
+     ============================================================ -->
+<section class="slide gradient-mesh grid-bg">
+    <div class="top-line"></div>
+    <div class="slide-content">
+        <div class="slide-header reveal"><span class="section-badge green">04 &bull; Network</span></div>
+        <h2 class="reveal">TCP Connectivity: Technical Flow</h2>
+        <div class="flow-row reveal" style="margin-top:var(--content-gap);">
+            <div class="flow-box cyan">User Input<br><span style="font-size:var(--label-size);color:var(--text-dim);">Host + Port</span></div><span class="flow-arrow">&rarr;</span>
+            <div class="flow-box green">WebSocket<br>Probe</div><span class="flow-arrow">&rarr;</span>
+            <div class="flow-box green">TCP Handshake<br>Attempt</div><span class="flow-arrow">&rarr;</span>
+            <div class="flow-box yellow">Response<br>Captured</div><span class="flow-arrow">&rarr;</span>
+            <div class="flow-box cyan">Status +<br>Latency</div>
+        </div>
+        <div class="cols-2 reveal" style="margin-top:var(--content-gap);">
+            <div class="card-panel glow-green">
+                <h3 class="accent-green">TCP 3-Way Handshake</h3>
+                <div style="margin-top:var(--element-gap); font-family:var(--font-mono); font-size:var(--small-size); display:flex; flex-direction:column; gap:var(--element-gap);">
+                    <div style="display:flex;justify-content:space-between;"><span class="accent">Client</span><span style="color:var(--accent-green);">&mdash;&mdash; SYN &mdash;&mdash;&rarr;</span><span class="accent-orange">Server</span></div>
+                    <div style="display:flex;justify-content:space-between;"><span class="accent">Client</span><span style="color:var(--accent-green);">&larr;&mdash; SYN-ACK &mdash;</span><span class="accent-orange">Server</span></div>
+                    <div style="display:flex;justify-content:space-between;"><span class="accent">Client</span><span style="color:var(--accent-green);">&mdash;&mdash; ACK &mdash;&mdash;&rarr;</span><span class="accent-orange">Server</span></div>
+                </div>
+                <p style="margin-top:var(--element-gap);font-size:var(--label-size);color:var(--text-dim);">Connection established after 3-way handshake completes</p>
+            </div>
+            <div class="card-panel">
+                <h3 class="accent-green">Why This Matters</h3>
+                <ul class="clean green" style="margin-top:var(--element-gap); display:flex; flex-direction:column; gap:var(--element-gap);">
+                    <li>Verify closed ports are actually closed</li>
+                    <li>Check critical services (SSH, HTTP, DB) responding</li>
+                    <li>Validate internal services not externally reachable</li>
+                    <li>Detect network routing anomalies via latency</li>
+                    <li>Pre-scan validation before full vuln scans</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bar"><span>CyberGuard Pro &mdash; Confidential Academic Presentation</span><span>31 / 35</span></div>
+</section>
+
+<!-- ============================================================
+     SLIDE 32 — WHOIS LOOKUP
+     ============================================================ -->
+<section class="slide gradient-mesh">
+    <div class="top-line"></div>
+    <div class="slide-content">
+        <div class="slide-header reveal"><span class="section-badge red">04 &bull; Network</span></div>
+        <h2 class="reveal">WHOIS Lookup</h2>
+        <p class="reveal" style="margin-top:var(--element-gap);">Full domain registration intelligence powered by WHOISXML API &mdash; essential for OSINT and threat attribution.</p>
+        <div class="cols-2" style="margin-top:var(--content-gap);">
+            <div class="card-panel glow-red reveal-left">
+                <h3 class="accent-red">Output Fields</h3>
+                <table class="data-table" style="margin-top:var(--element-gap);">
+                    <tr><td style="color:var(--accent-red);font-weight:600;">Registrar</td><td>Domain registration company</td></tr>
+                    <tr><td style="color:var(--accent-red);font-weight:600;">Created / Expires</td><td>Registration &amp; expiry dates</td></tr>
+                    <tr><td style="color:var(--accent-red);font-weight:600;">Nameservers</td><td>DNS servers for the domain</td></tr>
+                    <tr><td style="color:var(--accent-red);font-weight:600;">Registrant</td><td>Contact info (if available)</td></tr>
+                    <tr><td style="color:var(--accent-red);font-weight:600;">Domain Status</td><td>EPP status flags</td></tr>
+                </table>
+            </div>
+            <div class="card-panel reveal-right">
+                <h3 class="accent-red">Use Cases</h3>
+                <ul class="clean red" style="margin-top:var(--element-gap); display:flex; flex-direction:column; gap:var(--element-gap);">
+                    <li><strong style="color:var(--text-primary);">OSINT Investigation</strong> &mdash; Domain owners, registration patterns, infra connections</li>
+                    <li><strong style="color:var(--text-primary);">Phishing Detection</strong> &mdash; Newly registered domains are often phishing sites</li>
+                    <li><strong style="color:var(--text-primary);">Threat Attribution</strong> &mdash; Trace registrations to threat actors</li>
+                    <li><strong style="color:var(--text-primary);">Infrastructure Mapping</strong> &mdash; Identify related domains via registrant data</li>
+                </ul>
+            </div>
+        </div>
+        <p class="reveal" style="margin-top:var(--content-gap); font-family:var(--font-mono); font-size:var(--label-size); color:var(--text-dim); text-align:center;">Powered by WHOISXML API &bull; Input validated via domain regex &bull; Results parsed and formatted for display</p>
+    </div>
+    <div class="footer-bar"><span>CyberGuard Pro &mdash; Confidential Academic Presentation</span><span>32 / 35</span></div>
+</section>
+
+<!-- ============================================================
+     SLIDE 33 — WHOIS TECHNICAL FLOW
+     ============================================================ -->
+<section class="slide gradient-mesh">
+    <div class="top-line"></div>
+    <div class="slide-content">
+        <div class="slide-header reveal"><span class="section-badge red">04 &bull; Network</span></div>
+        <h2 class="reveal">WHOIS: Technical Flow &amp; Scenarios</h2>
+        <div class="flow-row reveal" style="margin-top:var(--content-gap);">
+            <div class="flow-box cyan">Domain Input</div><span class="flow-arrow">&rarr;</span>
+            <div class="flow-box green">Validation</div><span class="flow-arrow">&rarr;</span>
+            <div class="flow-box red">WHOISXML API</div><span class="flow-arrow">&rarr;</span>
+            <div class="flow-box yellow">Parse Data</div><span class="flow-arrow">&rarr;</span>
+            <div class="flow-box cyan">Display Results</div>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:var(--element-gap); margin-top:var(--content-gap);">
+            <div class="card-panel reveal" style="border-left:3px solid var(--accent-red);"><h3 class="accent-red" style="font-size:var(--small-size);">Phishing Domain Analysis</h3><p>User reports email from support@amaz0n-login.com. WHOIS reveals domain registered 3 days ago via privacy service in Panama &mdash; confirmed phishing.</p></div>
+            <div class="card-panel reveal" style="border-left:3px solid var(--accent-orange);"><h3 class="accent-orange" style="font-size:var(--small-size);">Domain Age Analysis</h3><p>Malware-serving domain registered 2 weeks ago with disposable email &mdash; typical short-lived malware infrastructure pattern.</p></div>
+            <div class="card-panel reveal" style="border-left:3px solid var(--accent-purple);"><h3 class="accent-purple" style="font-size:var(--small-size);">Infrastructure Mapping</h3><p>C2 server domain traced to registrant email also used for 15 other domains &mdash; mapping full attacker infrastructure.</p></div>
+        </div>
+    </div>
+    <div class="footer-bar"><span>CyberGuard Pro &mdash; Confidential Academic Presentation</span><span>33 / 35</span></div>
+</section>
+
+<!-- ============================================================
+     SLIDE 34 — ARCHITECTURE SUMMARY
+     ============================================================ -->
+<section class="slide gradient-mesh grid-bg">
+    <div class="top-line"></div>
+    <div class="slide-content">
+        <div class="slide-header reveal"><span class="section-badge">05 &bull; Architecture</span></div>
+        <h2 class="reveal">Platform Architecture Summary</h2>
+        <div class="card-panel reveal" style="text-align:center; margin-top:var(--element-gap); padding:clamp(0.3rem,0.6vw,0.5rem);">
+            <p style="font-size:var(--small-size);">Vanilla JS Frontend &nbsp;&bull;&nbsp; Laravel 12 REST API &nbsp;&bull;&nbsp; JWT Auth &nbsp;&bull;&nbsp; Redis Queues &nbsp;&bull;&nbsp; Pusher WebSockets &nbsp;&bull;&nbsp; Deployed on Vercel</p>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr auto 1fr; grid-template-rows:auto auto; gap:var(--element-gap); margin-top:var(--content-gap); align-items:center; justify-items:center;" class="reveal">
+            <div class="card-panel glow-cyan" style="text-align:center;width:100%;"><h3 class="accent">Network Analysis</h3><p>Port Scanner &bull; TCP &bull; WHOIS &bull; DNS &bull; GeoIP</p></div>
+            <div style="font-size:clamp(1rem,2vw,1.5rem);color:var(--accent-cyan);">&harr;</div>
+            <div class="card-panel glow-green" style="text-align:center;width:100%;"><h3 class="accent-green">Threat Intelligence</h3><p>VirusTotal &bull; AbuseIPDB &bull; URLScan.io</p></div>
+            <div class="card-panel glow-purple" style="text-align:center;width:100%;"><h3 class="accent-purple">Cryptographic Tools</h3><p>Hash Gen &bull; Password &bull; Identifier &bull; Integrity</p></div>
+            <div class="card-panel glow-magenta" style="text-align:center;width:100%;padding:clamp(0.6rem,1.2vw,1rem);"><h3 style="color:var(--accent-magenta);font-size:var(--h3-size);">Security<br>Dashboard</h3><p>Unified Interface</p></div>
+            <div class="card-panel glow-orange" style="text-align:center;width:100%;"><h3 class="accent-orange">Projects &amp; Teams</h3><p>CRUD &bull; Targets &bull; Scans &bull; Findings</p></div>
+        </div>
+    </div>
+    <div class="footer-bar"><span>CyberGuard Pro &mdash; Confidential Academic Presentation</span><span>34 / 35</span></div>
+</section>
+
+<!-- ============================================================
+     SLIDE 35 — CONCLUSION
+     ============================================================ -->
+<section class="slide gradient-mesh grid-bg scan-line">
+    <div class="top-line"></div>
+    <div class="slide-content" style="align-items:center; text-align:center;">
+        <h2 class="reveal" style="font-size:var(--h2-size);">Key Takeaways</h2>
+        <div style="max-width:min(90vw,800px); margin-top:var(--content-gap); display:flex; flex-direction:column; gap:var(--element-gap); text-align:left;">
+            <div class="card-panel reveal" style="border-left:3px solid var(--accent-cyan);"><p><strong class="accent">Unified Platform</strong> &mdash; Multiple cybersecurity tools in a single interface, eliminating context-switching across disparate tools.</p></div>
+            <div class="card-panel reveal" style="border-left:3px solid var(--accent-green);"><p><strong class="accent-green">Multi-Source Intelligence</strong> &mdash; Real-time aggregation from VirusTotal, AbuseIPDB, URLScan.io with automated verdict generation.</p></div>
+            <div class="card-panel reveal" style="border-left:3px solid var(--accent-purple);"><p><strong class="accent-purple">Advanced Cryptography</strong> &mdash; Hash generation, password analysis, identification, and file integrity &mdash; all client-side via CryptoJS.</p></div>
+            <div class="card-panel reveal" style="border-left:3px solid var(--accent-orange);"><p><strong class="accent-orange">Collaborative Workflows</strong> &mdash; Team-based projects with RBAC, target management, scanner execution, and full audit trails.</p></div>
+            <div class="card-panel reveal" style="border-left:3px solid var(--accent-magenta);"><p><strong class="accent-magenta">Network Reconnaissance</strong> &mdash; Shodan port scanning, TCP verification, WHOIS intelligence for thorough network assessments.</p></div>
+        </div>
+        <div class="reveal" style="margin-top:var(--content-gap);">
+            <div class="divider-glow"></div>
+            <h2 style="font-size:clamp(1.2rem,2.5vw,1.8rem); margin-top:var(--element-gap);">Thank You &mdash; Questions &amp; Discussion</h2>
+            <p class="meta-line" style="margin-top:var(--element-gap);">CyberGuard Pro &nbsp;&bull;&nbsp; Academic Project &nbsp;&bull;&nbsp; 2026</p>
+        </div>
+    </div>
+    <div class="footer-bar"><span>CyberGuard Pro &mdash; Confidential Academic Presentation</span><span>35 / 35</span></div>
+</section>
+
+<!-- ============================================================
+     SLIDE PRESENTATION CONTROLLER
+     ============================================================ -->
+<script>
+class SlidePresentation {
+    constructor() {
+        this.slides = document.querySelectorAll('.slide');
+        this.currentSlide = 0;
+        this.isScrolling = false;
+        this.setupIntersectionObserver();
+        this.setupKeyboardNav();
+        this.setupTouchNav();
+        this.setupProgressBar();
+        this.setupNavDots();
+        this.setupWheelNav();
+    }
+
+    setupIntersectionObserver() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    const idx = Array.from(this.slides).indexOf(entry.target);
+                    if (idx !== -1) {
+                        this.currentSlide = idx;
+                        this.updateProgressBar();
+                        this.updateNavDots();
+                    }
+                }
+            });
+        }, { threshold: 0.5 });
+        this.slides.forEach(slide => observer.observe(slide));
+    }
+
+    setupKeyboardNav() {
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+                e.preventDefault();
+                this.goToSlide(this.currentSlide + 1);
+            } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                e.preventDefault();
+                this.goToSlide(this.currentSlide - 1);
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                this.goToSlide(0);
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                this.goToSlide(this.slides.length - 1);
+            }
+        });
+    }
+
+    setupTouchNav() {
+        let startY = 0;
+        document.addEventListener('touchstart', (e) => { startY = e.touches[0].clientY; });
+        document.addEventListener('touchend', (e) => {
+            const diff = startY - e.changedTouches[0].clientY;
+            if (Math.abs(diff) > 50) {
+                this.goToSlide(this.currentSlide + (diff > 0 ? 1 : -1));
+            }
+        });
+    }
+
+    setupWheelNav() {
+        let lastWheel = 0;
+        document.addEventListener('wheel', (e) => {
+            const now = Date.now();
+            if (now - lastWheel < 800) return;
+            lastWheel = now;
+            if (e.deltaY > 0) this.goToSlide(this.currentSlide + 1);
+            else if (e.deltaY < 0) this.goToSlide(this.currentSlide - 1);
+        }, { passive: true });
+    }
+
+    setupProgressBar() {
+        this.progressBar = document.getElementById('progressBar');
+        this.updateProgressBar();
+    }
+
+    updateProgressBar() {
+        if (this.progressBar) {
+            const pct = ((this.currentSlide + 1) / this.slides.length) * 100;
+            this.progressBar.style.width = pct + '%';
+        }
+    }
+
+    setupNavDots() {
+        this.navDotsContainer = document.getElementById('navDots');
+        if (!this.navDotsContainer) return;
+        this.navDotsContainer.innerHTML = '';
+        this.slides.forEach((_, i) => {
+            const dot = document.createElement('button');
+            dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+            dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+            dot.addEventListener('click', () => this.goToSlide(i));
+            this.navDotsContainer.appendChild(dot);
+        });
+    }
+
+    updateNavDots() {
+        if (!this.navDotsContainer) return;
+        this.navDotsContainer.querySelectorAll('.nav-dot').forEach((dot, i) => {
+            dot.classList.toggle('active', i === this.currentSlide);
+        });
+    }
+
+    goToSlide(index) {
+        if (index < 0 || index >= this.slides.length) return;
+        this.currentSlide = index;
+        this.slides[index].scrollIntoView({ behavior: 'smooth' });
+        this.updateProgressBar();
+        this.updateNavDots();
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => new SlidePresentation());
+</script>
+
+</body>
+</html>
